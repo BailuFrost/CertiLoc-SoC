@@ -1,0 +1,10 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t08_xsim/initial_polygon_rom.v" into library work
+INFO: [VRFC 10-311] analyzing module initial_polygon_rom
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t08_xsim/vertex_ram_dual_buffer.v" into library work
+INFO: [VRFC 10-311] analyzing module vertex_ram_dual_buffer
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t08_xsim/initial_polygon_loader.v" into library work
+INFO: [VRFC 10-311] analyzing module initial_polygon_loader
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t08_xsim/tb_vertex_ram_dual_buffer.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_vertex_ram_dual_buffer
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t08_xsim/tb_initial_polygon_loader.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_initial_polygon_loader

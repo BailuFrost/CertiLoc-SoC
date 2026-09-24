@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t04_xsim/uart_rx/uart_rx.v" into library work
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t04_xsim/uart_rx/tb_uart_rx.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_uart_rx

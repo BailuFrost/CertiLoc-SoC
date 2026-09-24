@@ -1,0 +1,61 @@
+{
+  "port": "COM7",
+  "baud": 115200,
+  "pass": true,
+  "info_payload_hex": "01b3013f00e1f50500c20100101e12121410d00200040000",
+  "result_header": {
+    "job_sequence": 4,
+    "trusted": true,
+    "region_type": 3,
+    "vertex_count": 4,
+    "diameter_squared_raw": 17179868135424016,
+    "farthest_first": 0,
+    "farthest_second": 2,
+    "core_cycles": 12607,
+    "error_flags": 65
+  },
+  "status": {
+    "state": 6,
+    "result_valid": true,
+    "result_trusted": true,
+    "region_type": 3,
+    "observation_count": 2,
+    "active_observation_index": 1,
+    "vertex_count": 4,
+    "error_flags": 65,
+    "core_cycles": 12607
+  },
+  "vertices_raw": [
+    [
+      65535997,
+      0
+    ],
+    [
+      -5,
+      1150320
+    ],
+    [
+      -65535999,
+      0
+    ],
+    [
+      -5,
+      -1150320
+    ]
+  ],
+  "timing": {
+    "get_info_roundtrip_s": 0.01524269999936223,
+    "set_config_roundtrip_s": 0.016038100002333522,
+    "load_observations_roundtrip_s": 0.015798000007634982,
+    "start_ack_roundtrip_s": 0.0160219999961555,
+    "result_poll_s": 0.01645150000695139,
+    "result_header_roundtrip_s": 0.01591529999859631,
+    "result_vertices_roundtrip_s": 0.015628299996023998,
+    "end_to_end_s": 0.06415609997930005
+  },
+  "poll_count": 1,
+  "core_time_us": 126.07,
+  "stress_jobs": 1000,
+  "stress_cycle_min": 12607,
+  "stress_cycle_max": 12607
+}

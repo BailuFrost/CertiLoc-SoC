@@ -1,0 +1,30 @@
+{
+  "seed": 336966401,
+  "case_count": 1006,
+  "category_counts": {
+    "coordinate_boundary": 2,
+    "empty_region": 1,
+    "maximum_observations": 1,
+    "near_parallel": 1,
+    "phase_boundary": 1,
+    "random_consistent": 1000
+  },
+  "maximum_observation_count": 20,
+  "maximum_fixed_vertex_count": 10,
+  "untrusted_case_count": 0,
+  "quantization_margin_case_count": 1006,
+  "invariant_failures": [],
+  "true_source_containment_failures": [],
+  "empty_classification_mismatches": [],
+  "diameter_error_m2": {
+    "maximum": 3764.6536167166196,
+    "mean": 15.276773248210299,
+    "p95": 5.04027152269191
+  },
+  "vertex_hausdorff_m": {
+    "maximum": 1.180691113437436,
+    "mean": 0.027049443569524406,
+    "p95": 0.062728493742037
+  },
+  "pass": true
+}

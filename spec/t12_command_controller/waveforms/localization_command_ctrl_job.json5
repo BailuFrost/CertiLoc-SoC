@@ -1,0 +1,11 @@
+{
+  signal: [
+    {name: 'clk_i', wave: 'p.................'},
+    {name: 'command_valid_i', wave: '010...............'},
+    {name: 'command_code_i', wave: 'x=................', data: ['START']},
+    {name: 'response_valid_o', wave: '0010..............'},
+    {name: 'engine_state_o', wave: 'x.==========......', data: ['LOAD', 'CORDIC', 'CLIP-L', 'CLIP-U', 'CORDIC', 'CLIP-L', 'CLIP-U', 'DIAM', 'READY']},
+    {name: 'job_done_o', wave: '0...........10....'},
+    {name: 'result_valid_o', wave: '0............1....'}
+  ]
+}

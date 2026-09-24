@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t06_xsim/cordic_sincos.v" into library work
+INFO: [VRFC 10-311] analyzing module cordic_sincos
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t06_xsim/tb_cordic_sincos.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_cordic_sincos

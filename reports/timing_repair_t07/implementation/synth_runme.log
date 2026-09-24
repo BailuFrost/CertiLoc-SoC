@@ -1,0 +1,936 @@
+
+*** Running vivado
+    with args -log radio_localization_fpga_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source radio_localization_fpga_top.tcl
+
+
+
+****** Vivado v2024.2 (64-bit)
+  **** SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
+  **** IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+  **** SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+  **** Start of session at: Wed Sep 23 18:20:42 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source radio_localization_fpga_top.tcl -notrace
+create_project: Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 418.117 ; gain = 101.090
+Command: read_checkpoint -auto_incremental -incremental E:/B/fpga_stage1/fpga_stage1.srcs/utils_1/imports/synth_1/radio_localization_fpga_top.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from E:/B/fpga_stage1/fpga_stage1.srcs/utils_1/imports/synth_1/radio_localization_fpga_top.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top radio_localization_fpga_top -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 14112
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1078.051 ; gain = 467.863
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'radio_localization_fpga_top' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/top/radio_localization_fpga_top.v:4]
+INFO: [Synth 8-6157] synthesizing module 'uart_rx' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/comm/uart_rx.v:43]
+	Parameter C_CLKS_PER_BIT bound to: 868 - type: integer 
+	Parameter C_HALF_BIT_CLKS bound to: 434 - type: integer 
+INFO: [Synth 8-226] default block is never used [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/comm/uart_rx.v:136]
+INFO: [Synth 8-6155] done synthesizing module 'uart_rx' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/comm/uart_rx.v:43]
+INFO: [Synth 8-6157] synthesizing module 'packet_decoder' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/comm/packet_decoder.v:4]
+	Parameter C_MAX_PAYLOAD_LENGTH bound to: 244 - type: integer 
+	Parameter C_TIMEOUT_CLKS bound to: 10000000 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'crc16_ccitt_byte' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/comm/crc16_ccitt_byte.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'crc16_ccitt_byte' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/comm/crc16_ccitt_byte.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'packet_decoder' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/comm/packet_decoder.v:4]
+INFO: [Synth 8-6157] synthesizing module 'protocol_command_adapter' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/control/protocol_command_adapter.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'protocol_command_adapter' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/control/protocol_command_adapter.v:4]
+INFO: [Synth 8-6157] synthesizing module 'localization_command_ctrl' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/control/localization_command_ctrl.v:4]
+	Parameter C_ROM_INIT_FILE bound to: initial_polygon_720_q16_16.mem - type: string 
+INFO: [Synth 8-6157] synthesizing module 'initial_polygon_loader' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/memory/initial_polygon_loader.v:4]
+	Parameter C_ROM_INIT_FILE bound to: initial_polygon_720_q16_16.mem - type: string 
+INFO: [Synth 8-6157] synthesizing module 'initial_polygon_rom' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/memory/initial_polygon_rom.v:4]
+	Parameter C_INIT_FILE bound to: initial_polygon_720_q16_16.mem - type: string 
+INFO: [Synth 8-3876] $readmem data file 'initial_polygon_720_q16_16.mem' is read successfully [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/memory/initial_polygon_rom.v:24]
+INFO: [Synth 8-6155] done synthesizing module 'initial_polygon_rom' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/memory/initial_polygon_rom.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'initial_polygon_loader' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/memory/initial_polygon_loader.v:4]
+INFO: [Synth 8-6157] synthesizing module 'bearing_constraint_gen' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/bearing_constraint_gen.v:9]
+INFO: [Synth 8-6157] synthesizing module 'cordic_sincos' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/cordic_sincos.v:9]
+INFO: [Synth 8-6155] done synthesizing module 'cordic_sincos' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/cordic_sincos.v:9]
+INFO: [Synth 8-6155] done synthesizing module 'bearing_constraint_gen' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/bearing_constraint_gen.v:9]
+INFO: [Synth 8-6157] synthesizing module 'polygon_clip_engine' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/polygon_clip_engine.v:4]
+INFO: [Synth 8-6157] synthesizing module 'halfplane_classifier' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/halfplane_classifier.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'halfplane_classifier' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/halfplane_classifier.v:4]
+INFO: [Synth 8-6157] synthesizing module 'segment_intersection' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/segment_intersection.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'segment_intersection' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/segment_intersection.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'polygon_clip_engine' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/polygon_clip_engine.v:4]
+INFO: [Synth 8-6157] synthesizing module 'polygon_diameter_engine' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/polygon_diameter_engine.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'polygon_diameter_engine' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/geometry/polygon_diameter_engine.v:4]
+INFO: [Synth 8-6157] synthesizing module 'vertex_ram_dual_buffer' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/memory/vertex_ram_dual_buffer.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'vertex_ram_dual_buffer' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/memory/vertex_ram_dual_buffer.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'localization_command_ctrl' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/control/localization_command_ctrl.v:4]
+INFO: [Synth 8-6157] synthesizing module 'protocol_response_adapter' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/control/protocol_response_adapter.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'protocol_response_adapter' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/control/protocol_response_adapter.v:4]
+INFO: [Synth 8-6157] synthesizing module 'packet_encoder' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/comm/packet_encoder.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'packet_encoder' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/comm/packet_encoder.v:4]
+INFO: [Synth 8-6157] synthesizing module 'uart_tx' [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/comm/uart_tx.v:43]
+	Parameter C_CLKS_PER_BIT bound to: 868 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'uart_tx' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/comm/uart_tx.v:43]
+INFO: [Synth 8-6155] done synthesizing module 'radio_localization_fpga_top' (0#1) [E:/B/fpga_stage1/fpga_stage1.srcs/sources_1/imports/rtl/top/radio_localization_fpga_top.v:4]
+WARNING: [Synth 8-7137] Register mem_payload_reg in module packet_decoder has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code 
+WARNING: [Synth 8-4767] Trying to implement RAM 'mem_payload_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: RAM is sensitive to asynchronous reset signal. this RTL style is not supported. 
+RAM "mem_payload_reg" dissolved into registers
+WARNING: [Synth 8-7137] Register observation_x_memory_reg in module protocol_command_adapter has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code 
+WARNING: [Synth 8-7137] Register observation_y_memory_reg in module protocol_command_adapter has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code 
+WARNING: [Synth 8-7137] Register observation_phase_memory_reg in module protocol_command_adapter has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code 
+WARNING: [Synth 8-4767] Trying to implement RAM 'observation_x_memory_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: RAM is sensitive to asynchronous reset signal. this RTL style is not supported. 
+RAM "observation_x_memory_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM 'observation_y_memory_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: RAM is sensitive to asynchronous reset signal. this RTL style is not supported. 
+RAM "observation_y_memory_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM 'observation_phase_memory_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: RAM is sensitive to asynchronous reset signal. this RTL style is not supported. 
+RAM "observation_phase_memory_reg" dissolved into registers
+WARNING: [Synth 8-7137] Register observation_x_memory_reg in module localization_command_ctrl has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code 
+WARNING: [Synth 8-7137] Register observation_y_memory_reg in module localization_command_ctrl has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code 
+WARNING: [Synth 8-7137] Register observation_phase_memory_reg in module localization_command_ctrl has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code 
+WARNING: [Synth 8-4767] Trying to implement RAM 'observation_x_memory_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: RAM is sensitive to asynchronous reset signal. this RTL style is not supported. 
+RAM "observation_x_memory_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM 'observation_y_memory_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: RAM is sensitive to asynchronous reset signal. this RTL style is not supported. 
+RAM "observation_y_memory_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM 'observation_phase_memory_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: RAM is sensitive to asynchronous reset signal. this RTL style is not supported. 
+RAM "observation_phase_memory_reg" dissolved into registers
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1262.598 ; gain = 652.410
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 1262.598 ; gain = 652.410
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 1262.598 ; gain = 652.410
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.177 . Memory (MB): peak = 1262.598 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [E:/B/fpga_stage1/fpga_stage1.srcs/constrs_1/imports/constraints/basys3_radio_localization.xdc]
+Finished Parsing XDC File [E:/B/fpga_stage1/fpga_stage1.srcs/constrs_1/imports/constraints/basys3_radio_localization.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [E:/B/fpga_stage1/fpga_stage1.srcs/constrs_1/imports/constraints/basys3_radio_localization.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/radio_localization_fpga_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/radio_localization_fpga_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1349.426 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.066 . Memory (MB): peak = 1349.426 ; gain = 0.000
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:25 ; elapsed = 00:00:27 . Memory (MB): peak = 1349.426 ; gain = 739.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:25 ; elapsed = 00:00:27 . Memory (MB): peak = 1349.426 ; gain = 739.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:25 ; elapsed = 00:00:27 . Memory (MB): peak = 1349.426 ; gain = 739.238
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'uart_rx'
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'packet_decoder'
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'protocol_command_adapter'
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'initial_polygon_loader'
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'cordic_sincos'
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'bearing_constraint_gen'
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'halfplane_classifier'
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'polygon_clip_engine'
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'polygon_diameter_engine'
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'localization_command_ctrl'
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'protocol_response_adapter'
+INFO: [Synth 8-802] inferred FSM for state register 'state_current_reg' in module 'packet_encoder'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 ST_IDLE |                               00 |                               00
+                ST_START |                               01 |                               01
+                 ST_DATA |                               10 |                               10
+                 ST_STOP |                               11 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'sequential' in module 'uart_rx'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+         ST_SEARCH_FIRST |                             0000 |                             0000
+        ST_SEARCH_SECOND |                             0001 |                             0001
+              ST_VERSION |                             0010 |                             0010
+              ST_COMMAND |                             0011 |                             0011
+         ST_SEQUENCE_LOW |                             0100 |                             0100
+        ST_SEQUENCE_HIGH |                             0101 |                             0101
+           ST_LENGTH_LOW |                             0110 |                             0110
+          ST_LENGTH_HIGH |                             0111 |                             0111
+              ST_PAYLOAD |                             1000 |                             1000
+              ST_CRC_LOW |                             1001 |                             1001
+             ST_CRC_HIGH |                             1010 |                             1010
+           ST_FRAME_HOLD |                             1011 |                             1011
+           ST_ERROR_HOLD |                             1100 |                             1100
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'sequential' in module 'packet_decoder'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                              001 |                             0000
+      STATE_READ_REQUEST |                              110 |                             0001
+         STATE_READ_WAIT |                              101 |                             0010
+          STATE_VALIDATE |                              100 |                             0011
+             STATE_ERROR |                              000 |                             0110
+STATE_WRITE_OBSERVATIONS |                              011 |                             0100
+          STATE_DISPATCH |                              010 |                             0101
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'sequential' in module 'protocol_command_adapter'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                              001 |                               00
+            STATE_STREAM |                              010 |                               01
+             STATE_DRAIN |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'one-hot' in module 'initial_polygon_loader'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                              001 |                               00
+           STATE_ITERATE |                              010 |                               01
+            STATE_OUTPUT |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'one-hot' in module 'cordic_sincos'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                      00000000001 |                             0000
+       STATE_START_LOWER |                      00000000010 |                             0001
+        STATE_WAIT_LOWER |                      00000000100 |                             0010
+       STATE_START_UPPER |                      00000001000 |                             0011
+       STATE_LOWER_MUL_X |                      00000010000 |                             0100
+       STATE_LOWER_MUL_Y |                      00000100000 |                             0101
+      STATE_LOWER_OUTPUT |                      00001000000 |                             0110
+        STATE_WAIT_UPPER |                      00010000000 |                             0111
+       STATE_UPPER_MUL_X |                      00100000000 |                             1000
+       STATE_UPPER_MUL_Y |                      01000000000 |                             1001
+      STATE_UPPER_OUTPUT |                      10000000000 |                             1010
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'one-hot' in module 'bearing_constraint_gen'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                            00001 |                              000
+             STATE_MUL_X |                            00010 |                              001
+             STATE_MUL_Y |                            00100 |                              010
+               STATE_SUM |                            01000 |                              011
+            STATE_OUTPUT |                            10000 |                              100
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'one-hot' in module 'halfplane_classifier'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |               000000000100000000 |                            00000
+STATE_READ_START_REQUEST |               000000100000000000 |                            00001
+   STATE_READ_START_WAIT |               000000001000000000 |                            00010
+STATE_CLASSIFY_START_BEGIN |               000000000001000000 |                            00011
+STATE_CLASSIFY_START_WAIT |               000000000010000000 |                            00100
+  STATE_READ_END_REQUEST |               000000010000000000 |                            00101
+     STATE_READ_END_WAIT |               010000000000000000 |                            00110
+STATE_CLASSIFY_END_BEGIN |               000100000000000000 |                            00111
+ STATE_CLASSIFY_END_WAIT |               001000000000000000 |                            01000
+            STATE_DECIDE |               100000000000000000 |                            01001
+STATE_INTERSECTION_BEGIN |               000010000000000000 |                            01010
+ STATE_INTERSECTION_WAIT |               000001000000000000 |                            01011
+     STATE_RECHECK_BEGIN |               000000000000100000 |                            01100
+      STATE_RECHECK_WAIT |               000000000000010000 |                            01101
+        STATE_EMIT_FIRST |               000000000000000001 |                            01110
+       STATE_EMIT_SECOND |               000000000000000100 |                            01111
+           STATE_ADVANCE |               000000000000001000 |                            10000
+            STATE_FINISH |               000000000000000010 |                            10001
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'one-hot' in module 'polygon_clip_engine'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                              001 |                               00
+               STATE_RUN |                              010 |                               01
+            STATE_FINISH |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'one-hot' in module 'polygon_diameter_engine'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                             0001 |                            00000
+        STATE_LOAD_START |                             0010 |                            00001
+         STATE_LOAD_WAIT |                             1011 |                            00010
+  STATE_CONSTRAINT_START |                             1000 |                            00011
+   STATE_CONSTRAINT_WAIT |                             1010 |                            00100
+  STATE_CLIP_LOWER_START |                             1001 |                            00101
+   STATE_CLIP_LOWER_WAIT |                             0111 |                            00110
+  STATE_CLIP_UPPER_START |                             0011 |                            00111
+   STATE_CLIP_UPPER_WAIT |                             0100 |                            01000
+    STATE_DIAMETER_START |                             0101 |                            01001
+     STATE_DIAMETER_WAIT |                             0110 |                            01010
+         STATE_JOB_ERROR |                             0000 |                            01100
+        STATE_JOB_FINISH |                             1100 |                            01011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'sequential' in module 'localization_command_ctrl'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                              001 |                               00
+             STATE_FRAME |                              010 |                               01
+              STATE_SEND |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'one-hot' in module 'protocol_response_adapter'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 ST_IDLE |                     000000000001 |                             0000
+            ST_SOF_FIRST |                     000000000010 |                             0001
+           ST_SOF_SECOND |                     000000000100 |                             0010
+              ST_VERSION |                     000000001000 |                             0011
+              ST_COMMAND |                     000000010000 |                             0100
+         ST_SEQUENCE_LOW |                     000000100000 |                             0101
+        ST_SEQUENCE_HIGH |                     000001000000 |                             0110
+           ST_LENGTH_LOW |                     000010000000 |                             0111
+          ST_LENGTH_HIGH |                     000100000000 |                             1000
+              ST_PAYLOAD |                     001000000000 |                             1001
+              ST_CRC_LOW |                     010000000000 |                             1010
+             ST_CRC_HIGH |                     100000000000 |                             1011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_current_reg' using encoding 'one-hot' in module 'packet_encoder'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:31 ; elapsed = 00:00:35 . Memory (MB): peak = 1349.426 ; gain = 739.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input   68 Bit       Adders := 1     
+	   4 Input   67 Bit       Adders := 1     
+	   3 Input   67 Bit       Adders := 1     
+	   2 Input   67 Bit       Adders := 3     
+	   2 Input   65 Bit       Adders := 3     
+	   3 Input   36 Bit       Adders := 2     
+	   2 Input   36 Bit       Adders := 4     
+	   2 Input   34 Bit       Adders := 2     
+	   3 Input   33 Bit       Adders := 4     
+	   2 Input   33 Bit       Adders := 1     
+	   3 Input   32 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 6     
+	   2 Input   31 Bit       Adders := 1     
+	   2 Input   24 Bit       Adders := 1     
+	   4 Input   23 Bit       Adders := 1     
+	   2 Input   20 Bit       Adders := 1     
+	   2 Input   18 Bit       Adders := 3     
+	   3 Input   12 Bit       Adders := 2     
+	   2 Input   11 Bit       Adders := 4     
+	   2 Input   10 Bit       Adders := 6     
+	   3 Input   10 Bit       Adders := 1     
+	   2 Input    8 Bit       Adders := 8     
+	   2 Input    5 Bit       Adders := 6     
+	   3 Input    5 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 2     
+	   2 Input    3 Bit       Adders := 3     
++---XORs : 
+	   2 Input     16 Bit         XORs := 2     
+	   2 Input      1 Bit         XORs := 4     
++---Registers : 
+	               68 Bit    Registers := 1     
+	               67 Bit    Registers := 3     
+	               66 Bit    Registers := 14    
+	               65 Bit    Registers := 2     
+	               64 Bit    Registers := 8     
+	               36 Bit    Registers := 2     
+	               34 Bit    Registers := 2     
+	               33 Bit    Registers := 4     
+	               32 Bit    Registers := 130   
+	               31 Bit    Registers := 1     
+	               30 Bit    Registers := 1     
+	               24 Bit    Registers := 1     
+	               20 Bit    Registers := 1     
+	               18 Bit    Registers := 42    
+	               16 Bit    Registers := 12    
+	               11 Bit    Registers := 9     
+	               10 Bit    Registers := 22    
+	                8 Bit    Registers := 276   
+	                5 Bit    Registers := 12    
+	                4 Bit    Registers := 3     
+	                3 Bit    Registers := 3     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 90    
++---Multipliers : 
+	              33x33  Multipliers := 2     
+	              32x33  Multipliers := 1     
+	              32x32  Multipliers := 3     
++---RAMs : 
+	             128K Bit	(2048 X 64 bit)          RAMs := 1     
++---ROMs : 
+	                    ROMs := 1     
++---Muxes : 
+	  11 Input   68 Bit        Muxes := 1     
+	   2 Input   68 Bit        Muxes := 1     
+	   5 Input   67 Bit        Muxes := 1     
+	   2 Input   67 Bit        Muxes := 2     
+	   3 Input   66 Bit        Muxes := 2     
+	  13 Input   66 Bit        Muxes := 1     
+	   2 Input   66 Bit        Muxes := 3     
+	   2 Input   64 Bit        Muxes := 4     
+	   2 Input   36 Bit        Muxes := 2     
+	   3 Input   36 Bit        Muxes := 2     
+	  11 Input   33 Bit        Muxes := 1     
+	   2 Input   33 Bit        Muxes := 1     
+	  10 Input   32 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 53    
+	   3 Input   32 Bit        Muxes := 3     
+	  11 Input   32 Bit        Muxes := 4     
+	  13 Input   32 Bit        Muxes := 6     
+	  11 Input   31 Bit        Muxes := 1     
+	   2 Input   31 Bit        Muxes := 1     
+	  11 Input   30 Bit        Muxes := 1     
+	   2 Input   30 Bit        Muxes := 1     
+	   2 Input   24 Bit        Muxes := 2     
+	   3 Input   20 Bit        Muxes := 1     
+	   4 Input   19 Bit        Muxes := 1     
+	   4 Input   18 Bit        Muxes := 1     
+	   2 Input   18 Bit        Muxes := 13    
+	  18 Input   18 Bit        Muxes := 1     
+	   2 Input   16 Bit        Muxes := 16    
+	  10 Input   16 Bit        Muxes := 2     
+	   4 Input   16 Bit        Muxes := 2     
+	   7 Input   16 Bit        Muxes := 2     
+	  12 Input   12 Bit        Muxes := 1     
+	   2 Input   12 Bit        Muxes := 1     
+	   3 Input   11 Bit        Muxes := 1     
+	  13 Input   11 Bit        Muxes := 3     
+	   2 Input   11 Bit        Muxes := 2     
+	   2 Input   10 Bit        Muxes := 15    
+	   3 Input   10 Bit        Muxes := 7     
+	   2 Input    8 Bit        Muxes := 44    
+	  10 Input    8 Bit        Muxes := 3     
+	   4 Input    8 Bit        Muxes := 2     
+	   7 Input    8 Bit        Muxes := 1     
+	   5 Input    8 Bit        Muxes := 1     
+	   3 Input    8 Bit        Muxes := 4     
+	   6 Input    8 Bit        Muxes := 1     
+	  12 Input    8 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 30    
+	   4 Input    5 Bit        Muxes := 1     
+	   7 Input    5 Bit        Muxes := 1     
+	  13 Input    5 Bit        Muxes := 3     
+	   3 Input    5 Bit        Muxes := 1     
+	  11 Input    5 Bit        Muxes := 1     
+	  13 Input    4 Bit        Muxes := 1     
+	  22 Input    4 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 16    
+	   5 Input    4 Bit        Muxes := 1     
+	   4 Input    4 Bit        Muxes := 2     
+	   3 Input    4 Bit        Muxes := 3     
+	  32 Input    4 Bit        Muxes := 1     
+	  12 Input    4 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 19    
+	   7 Input    3 Bit        Muxes := 1     
+	   3 Input    3 Bit        Muxes := 2     
+	   4 Input    2 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 3     
+	   2 Input    1 Bit        Muxes := 219   
+	   4 Input    1 Bit        Muxes := 9     
+	  10 Input    1 Bit        Muxes := 10    
+	  13 Input    1 Bit        Muxes := 38    
+	   7 Input    1 Bit        Muxes := 7     
+	   5 Input    1 Bit        Muxes := 3     
+	   3 Input    1 Bit        Muxes := 36    
+	  11 Input    1 Bit        Muxes := 24    
+	  18 Input    1 Bit        Muxes := 1     
+	   8 Input    1 Bit        Muxes := 4     
+	  12 Input    1 Bit        Muxes := 3     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+DSP Report: Generating DSP multiplier_product, operation Mode is: A2*B2.
+DSP Report: register multiplier_factor_a_saved_reg is absorbed into DSP multiplier_product.
+DSP Report: register multiplier_product is absorbed into DSP multiplier_product.
+DSP Report: operator multiplier_product is absorbed into DSP multiplier_product.
+DSP Report: operator multiplier_product is absorbed into DSP multiplier_product.
+DSP Report: Generating DSP multiplier_product_saved_reg, operation Mode is: (PCIN>>17)+A2*B2.
+DSP Report: register multiplier_factor_b_saved_reg is absorbed into DSP multiplier_product_saved_reg.
+DSP Report: register multiplier_factor_a_saved_reg is absorbed into DSP multiplier_product_saved_reg.
+DSP Report: register multiplier_product_saved_reg is absorbed into DSP multiplier_product_saved_reg.
+DSP Report: operator multiplier_product is absorbed into DSP multiplier_product_saved_reg.
+DSP Report: operator multiplier_product is absorbed into DSP multiplier_product_saved_reg.
+DSP Report: Generating DSP multiplier_product, operation Mode is: A2*B2.
+DSP Report: register multiplier_product is absorbed into DSP multiplier_product.
+DSP Report: register multiplier_product is absorbed into DSP multiplier_product.
+DSP Report: operator multiplier_product is absorbed into DSP multiplier_product.
+DSP Report: operator multiplier_product is absorbed into DSP multiplier_product.
+DSP Report: Generating DSP multiplier_product_saved_reg, operation Mode is: (PCIN>>17)+A2*B2.
+DSP Report: register multiplier_factor_b_saved_reg is absorbed into DSP multiplier_product_saved_reg.
+DSP Report: register multiplier_product_saved_reg is absorbed into DSP multiplier_product_saved_reg.
+DSP Report: register multiplier_product_saved_reg is absorbed into DSP multiplier_product_saved_reg.
+DSP Report: operator multiplier_product is absorbed into DSP multiplier_product_saved_reg.
+DSP Report: operator multiplier_product is absorbed into DSP multiplier_product_saved_reg.
+DSP Report: Generating DSP product_y_saved0, operation Mode is: A*B.
+DSP Report: operator product_y_saved0 is absorbed into DSP product_y_saved0.
+DSP Report: operator product_y_saved0 is absorbed into DSP product_y_saved0.
+DSP Report: Generating DSP product_y_saved0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product_y_saved0 is absorbed into DSP product_y_saved0.
+DSP Report: operator product_y_saved0 is absorbed into DSP product_y_saved0.
+DSP Report: Generating DSP product_y_saved0, operation Mode is: A*B.
+DSP Report: operator product_y_saved0 is absorbed into DSP product_y_saved0.
+DSP Report: operator product_y_saved0 is absorbed into DSP product_y_saved0.
+DSP Report: Generating DSP product_y_saved0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product_y_saved0 is absorbed into DSP product_y_saved0.
+DSP Report: operator product_y_saved0 is absorbed into DSP product_y_saved0.
+DSP Report: Generating DSP product_x_saved0, operation Mode is: A*B.
+DSP Report: operator product_x_saved0 is absorbed into DSP product_x_saved0.
+DSP Report: operator product_x_saved0 is absorbed into DSP product_x_saved0.
+DSP Report: Generating DSP product_x_saved0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product_x_saved0 is absorbed into DSP product_x_saved0.
+DSP Report: operator product_x_saved0 is absorbed into DSP product_x_saved0.
+DSP Report: Generating DSP product_x_saved0, operation Mode is: A*B.
+DSP Report: operator product_x_saved0 is absorbed into DSP product_x_saved0.
+DSP Report: operator product_x_saved0 is absorbed into DSP product_x_saved0.
+DSP Report: Generating DSP product_x_saved0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product_x_saved0 is absorbed into DSP product_x_saved0.
+DSP Report: operator product_x_saved0 is absorbed into DSP product_x_saved0.
+DSP Report: Generating DSP product_saved0, operation Mode is: A*B.
+DSP Report: operator product_saved0 is absorbed into DSP product_saved0.
+DSP Report: operator product_saved0 is absorbed into DSP product_saved0.
+DSP Report: Generating DSP product_saved0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product_saved0 is absorbed into DSP product_saved0.
+DSP Report: operator product_saved0 is absorbed into DSP product_saved0.
+DSP Report: Generating DSP product_saved0, operation Mode is: A*B.
+DSP Report: operator product_saved0 is absorbed into DSP product_saved0.
+DSP Report: operator product_saved0 is absorbed into DSP product_saved0.
+DSP Report: Generating DSP product_saved0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product_saved0 is absorbed into DSP product_saved0.
+DSP Report: operator product_saved0 is absorbed into DSP product_saved0.
+DSP Report: Generating DSP square_y_saved0, operation Mode is: A*B.
+DSP Report: operator square_y_saved0 is absorbed into DSP square_y_saved0.
+DSP Report: operator square_y_saved0 is absorbed into DSP square_y_saved0.
+DSP Report: Generating DSP square_y_saved0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator square_y_saved0 is absorbed into DSP square_y_saved0.
+DSP Report: operator square_y_saved0 is absorbed into DSP square_y_saved0.
+DSP Report: Generating DSP square_y_saved0, operation Mode is: A*B.
+DSP Report: operator square_y_saved0 is absorbed into DSP square_y_saved0.
+DSP Report: operator square_y_saved0 is absorbed into DSP square_y_saved0.
+DSP Report: Generating DSP square_y_saved0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator square_y_saved0 is absorbed into DSP square_y_saved0.
+DSP Report: operator square_y_saved0 is absorbed into DSP square_y_saved0.
+DSP Report: Generating DSP square_x_saved0, operation Mode is: A*B.
+DSP Report: operator square_x_saved0 is absorbed into DSP square_x_saved0.
+DSP Report: operator square_x_saved0 is absorbed into DSP square_x_saved0.
+DSP Report: Generating DSP square_x_saved0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator square_x_saved0 is absorbed into DSP square_x_saved0.
+DSP Report: operator square_x_saved0 is absorbed into DSP square_x_saved0.
+DSP Report: Generating DSP square_x_saved0, operation Mode is: A*B.
+DSP Report: operator square_x_saved0 is absorbed into DSP square_x_saved0.
+DSP Report: operator square_x_saved0 is absorbed into DSP square_x_saved0.
+DSP Report: Generating DSP square_x_saved0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator square_x_saved0 is absorbed into DSP square_x_saved0.
+DSP Report: operator square_x_saved0 is absorbed into DSP square_x_saved0.
+INFO: [Synth 8-3971] The signal "localization_command_ctrl_instance/vertex_ram_dual_buffer_instance/vertex_memory_reg" was recognized as a true dual port RAM template.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[47]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[46]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[45]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[44]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[43]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[42]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[41]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[40]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[39]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[38]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[37]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[36]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[35]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[34]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[33]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[32]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[31]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[30]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[29]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[28]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[27]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[26]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[25]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[24]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[23]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[22]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[21]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[20]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[19]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[18]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[17]) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[47]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[46]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[45]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[44]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[43]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[42]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[41]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[40]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[39]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[38]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[37]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[36]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[35]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[34]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[33]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[32]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[31]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[30]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[29]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[28]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[27]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[26]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[25]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[24]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[23]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[22]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[21]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[20]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[19]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[18]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (multiplier_product_saved_reg[17]__0) is unused and will be removed from module bearing_constraint_gen.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[47]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[46]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[45]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[44]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[43]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[42]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[41]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[40]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[39]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[38]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[37]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[36]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[35]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[34]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[33]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[32]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[31]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[30]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[29]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[28]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[27]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[26]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[25]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[24]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[23]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[22]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[21]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[20]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[19]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[18]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[17]) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[47]__0) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[46]__0) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[45]__0) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[44]__0) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[43]__0) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[42]__0) is unused and will be removed from module halfplane_classifier.
+WARNING: [Synth 8-3332] Sequential element (product_y_saved_reg[41]__0) is unused and will be removed from module halfplane_classifier.
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:20 ; elapsed = 00:01:27 . Memory (MB): peak = 1471.410 ; gain = 861.223
+---------------------------------------------------------------------------------
+ Sort Area is  multiplier_product_0 : 0 0 : 2737 4981 : Used 1 time 100
+ Sort Area is  multiplier_product_0 : 0 1 : 2244 4981 : Used 1 time 100
+ Sort Area is  multiplier_product_3 : 0 0 : 2191 4125 : Used 1 time 100
+ Sort Area is  multiplier_product_3 : 0 1 : 1934 4125 : Used 1 time 100
+ Sort Area is  square_x_saved0_12 : 0 0 : 3101 5879 : Used 1 time 0
+ Sort Area is  square_x_saved0_12 : 0 1 : 2778 5879 : Used 1 time 0
+ Sort Area is  square_y_saved0_16 : 0 0 : 3101 5879 : Used 1 time 0
+ Sort Area is  square_y_saved0_16 : 0 1 : 2778 5879 : Used 1 time 0
+ Sort Area is  product_saved0_e : 0 0 : 3101 5754 : Used 1 time 0
+ Sort Area is  product_saved0_e : 0 1 : 2653 5754 : Used 1 time 0
+ Sort Area is  product_x_saved0_6 : 0 0 : 3101 5754 : Used 1 time 0
+ Sort Area is  product_x_saved0_6 : 0 1 : 2653 5754 : Used 1 time 0
+ Sort Area is  product_y_saved0_c : 0 0 : 3101 5754 : Used 1 time 0
+ Sort Area is  product_y_saved0_c : 0 1 : 2653 5754 : Used 1 time 0
+ Sort Area is  product_x_saved0_9 : 0 0 : 2634 5119 : Used 1 time 0
+ Sort Area is  product_x_saved0_9 : 0 1 : 2485 5119 : Used 1 time 0
+ Sort Area is  product_y_saved0_d : 0 0 : 2634 5119 : Used 1 time 0
+ Sort Area is  product_y_saved0_d : 0 1 : 2485 5119 : Used 1 time 0
+ Sort Area is  square_x_saved0_14 : 0 0 : 2304 4963 : Used 1 time 0
+ Sort Area is  square_x_saved0_14 : 0 1 : 2659 4963 : Used 1 time 0
+ Sort Area is  square_y_saved0_17 : 0 0 : 2304 4963 : Used 1 time 0
+ Sort Area is  square_y_saved0_17 : 0 1 : 2659 4963 : Used 1 time 0
+ Sort Area is  product_saved0_f : 0 0 : 2304 4252 : Used 1 time 0
+ Sort Area is  product_saved0_f : 0 1 : 1948 4252 : Used 1 time 0
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping Report
++--------------------------+---------------------------------------------------+---------------+----------------+
+|Module Name               | RTL Object                                        | Depth x Width | Implemented As | 
++--------------------------+---------------------------------------------------+---------------+----------------+
+|cordic_sincos             | atan_step                                         | 32x31         | LUT            | 
+|initial_polygon_loader    | initial_polygon_rom_instance/read_data_result_reg | 1024x64       | Block RAM      | 
+|bearing_constraint_gen    | cordic_sincos_instance/atan_step                  | 32x31         | LUT            | 
+|protocol_response_adapter | payload_data_mux                                  | 32x8          | LUT            | 
++--------------------------+---------------------------------------------------+---------------+----------------+
+
+
+Block RAM: Preliminary Mapping Report (see note below)
++-----------------------------------+---------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name                        | RTL Object                                        | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++-----------------------------------+---------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|localization_command_ctrl_instance | vertex_ram_dual_buffer_instance/vertex_memory_reg | 2 K x 64(READ_FIRST)   | W | R | 2 K x 64(READ_FIRST)   | W | R | Port A and B     | 0      | 4      | 
++-----------------------------------+---------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++------------------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name             | DSP Mapping      | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|bearing_constraint_gen  | A2*B2            | 18     | 15     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|bearing_constraint_gen  | (PCIN>>17)+A2*B2 | 15     | 15     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 1    | 
+|bearing_constraint_gen  | A2*B2            | 18     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|bearing_constraint_gen  | (PCIN>>17)+A2*B2 | 18     | 15     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 1    | 
+|halfplane_classifier    | A*B              | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|halfplane_classifier    | (PCIN>>17)+A*B   | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|halfplane_classifier    | A*B              | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|halfplane_classifier    | (PCIN>>17)+A*B   | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|halfplane_classifier    | A*B              | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|halfplane_classifier    | (PCIN>>17)+A*B   | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|halfplane_classifier    | A*B              | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|halfplane_classifier    | (PCIN>>17)+A*B   | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|segment_intersection    | A*B              | 18     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|segment_intersection    | (PCIN>>17)+A*B   | 16     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|segment_intersection    | A*B              | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|segment_intersection    | (PCIN>>17)+A*B   | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | A*B              | 18     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | (PCIN>>17)+A*B   | 16     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | A*B              | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | (PCIN>>17)+A*B   | 18     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | A*B              | 18     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | (PCIN>>17)+A*B   | 16     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | A*B              | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | (PCIN>>17)+A*B   | 18     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++------------------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:31 ; elapsed = 00:01:39 . Memory (MB): peak = 1516.422 ; gain = 906.234
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:39 ; elapsed = 00:01:48 . Memory (MB): peak = 1622.168 ; gain = 1011.980
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++-----------------------------------+---------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name                        | RTL Object                                        | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++-----------------------------------+---------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|localization_command_ctrl_instance | vertex_ram_dual_buffer_instance/vertex_memory_reg | 2 K x 64(READ_FIRST)   | W | R | 2 K x 64(READ_FIRST)   | W | R | Port A and B     | 0      | 4      | 
++-----------------------------------+---------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance localization_command_ctrl_instance/initial_polygon_loader_instance/initial_polygon_rom_instance/read_data_result_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance localization_command_ctrl_instance/initial_polygon_loader_instance/initial_polygon_rom_instance/read_data_result_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance localization_command_ctrl_instance/vertex_ram_dual_buffer_instance/vertex_memory_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance localization_command_ctrl_instance/vertex_ram_dual_buffer_instance/vertex_memory_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance localization_command_ctrl_instance/vertex_ram_dual_buffer_instance/vertex_memory_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance localization_command_ctrl_instance/vertex_ram_dual_buffer_instance/vertex_memory_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance localization_command_ctrl_instance/vertex_ram_dual_buffer_instance/vertex_memory_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance localization_command_ctrl_instance/vertex_ram_dual_buffer_instance/vertex_memory_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance localization_command_ctrl_instance/vertex_ram_dual_buffer_instance/vertex_memory_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance localization_command_ctrl_instance/vertex_ram_dual_buffer_instance/vertex_memory_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:48 ; elapsed = 00:01:57 . Memory (MB): peak = 1648.496 ; gain = 1038.309
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:54 ; elapsed = 00:02:03 . Memory (MB): peak = 1773.160 ; gain = 1162.973
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:54 ; elapsed = 00:02:03 . Memory (MB): peak = 1773.160 ; gain = 1162.973
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:57 ; elapsed = 00:02:06 . Memory (MB): peak = 1773.160 ; gain = 1162.973
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:57 ; elapsed = 00:02:06 . Memory (MB): peak = 1773.160 ; gain = 1162.973
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:57 ; elapsed = 00:02:07 . Memory (MB): peak = 1783.969 ; gain = 1173.781
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:58 ; elapsed = 00:02:07 . Memory (MB): peak = 1783.969 ; gain = 1173.781
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------------------+-------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name             | DSP Mapping       | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------------------+-------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|bearing_constraint_gen  | A'*B'             | 17     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|bearing_constraint_gen  | (PCIN>>17+A'*B')' | 30     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 1    | 
+|bearing_constraint_gen  | A'*B'             | 17     | 17     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|bearing_constraint_gen  | (PCIN>>17+A*B')'  | 0      | 18     | -      | -      | 48     | 0    | 1    | -    | -    | -     | 0    | 1    | 
+|halfplane_classifier    | A*B               | 17     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|halfplane_classifier    | (PCIN>>17+A*B)'   | 30     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|halfplane_classifier    | A*B               | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|halfplane_classifier    | (PCIN>>17+A*B)'   | 0      | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|halfplane_classifier    | A*B               | 17     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|halfplane_classifier    | (PCIN>>17+A*B)'   | 30     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|halfplane_classifier    | A*B               | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|halfplane_classifier    | (PCIN>>17+A*B)'   | 0      | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|segment_intersection    | A*B               | 17     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|segment_intersection    | (PCIN>>17+A*B)'   | 30     | 14     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|segment_intersection    | A*B               | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|segment_intersection    | (PCIN>>17+A*B)'   | 0      | 14     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|polygon_diameter_engine | A*B               | 17     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | (PCIN>>17+A*B)'   | 30     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|polygon_diameter_engine | A*B               | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | (PCIN>>17+A*B)'   | 17     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|polygon_diameter_engine | A*B               | 17     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | (PCIN>>17+A*B)'   | 30     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|polygon_diameter_engine | A*B               | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|polygon_diameter_engine | (PCIN>>17+A*B)'   | 17     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
++------------------------+-------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     1|
+|2     |CARRY4   |   540|
+|3     |DSP48E1  |    24|
+|7     |LUT1     |   453|
+|8     |LUT2     |  1121|
+|9     |LUT3     |  1096|
+|10    |LUT4     |   862|
+|11    |LUT5     |  1061|
+|12    |LUT6     |  3039|
+|13    |MUXF7    |   612|
+|14    |MUXF8    |   133|
+|15    |RAMB36E1 |     6|
+|18    |FDCE     |  3827|
+|19    |FDPE     |    76|
+|20    |FDRE     |  5833|
+|21    |FDSE     |     1|
+|22    |IBUF     |     3|
+|23    |OBUF     |     6|
++------+---------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:58 ; elapsed = 00:02:07 . Memory (MB): peak = 1783.969 ; gain = 1173.781
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 460 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:41 ; elapsed = 00:02:02 . Memory (MB): peak = 1783.969 ; gain = 1086.953
+Synthesis Optimization Complete : Time (s): cpu = 00:01:58 ; elapsed = 00:02:07 . Memory (MB): peak = 1783.969 ; gain = 1173.781
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.194 . Memory (MB): peak = 1793.176 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 1315 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1796.836 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: b29ab41e
+INFO: [Common 17-83] Releasing license: Synthesis
+95 Infos, 115 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:02:05 ; elapsed = 00:02:19 . Memory (MB): peak = 1796.836 ; gain = 1374.594
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.046 . Memory (MB): peak = 1796.836 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'E:/B/fpga_stage1/fpga_stage1.runs/synth_1/radio_localization_fpga_top.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file radio_localization_fpga_top_utilization_synth.rpt -pb radio_localization_fpga_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Sep 23 18:23:12 2026...

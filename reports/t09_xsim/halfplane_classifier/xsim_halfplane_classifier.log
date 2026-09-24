@@ -1,0 +1,31 @@
+#-----------------------------------------------------------
+# xsim v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Sun Sep 20 20:55:38 2026
+# Process ID         : 27512
+# Current directory  : C:/t09_xsim/classifier
+# Command line       : xsim.exe -log xsim.log -mode tcl -source {xsim.dir/tb_halfplane_classifier_sim/xsim_script.tcl}
+# Log file           : C:/t09_xsim/classifier/xsim.log
+# Journal file       : C:/t09_xsim/classifier\xsim.jou
+# Running On         : XiaoB
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : Intel(R) Core(TM) Ultra 5 125H
+# CPU Frequency      : 2995 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 18
+# Host memory        : 16666 MB
+# Swap memory        : 18519 MB
+# Total Virtual      : 35186 MB
+# Available Virtual  : 6818 MB
+#-----------------------------------------------------------
+source xsim.dir/tb_halfplane_classifier_sim/xsim_script.tcl
+# xsim {tb_halfplane_classifier_sim} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+PASS: halfplane_classifier matched 6 directed vectors
+$finish called at time : 460 ns : File "E:/BÌâ¸Ä½ø/fpga_stage1/tb/unit/tb_halfplane_classifier.v" Line 159
+exit
+INFO: [Common 17-206] Exiting xsim at Sun Sep 20 20:55:40 2026...

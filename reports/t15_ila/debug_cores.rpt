@@ -1,0 +1,187 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
+| Date         : Wed Sep 23 20:10:37 2026
+| Host         : XiaoB running 64-bit major release  (build 9200)
+| Design       : radio_localization_fpga_top
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Debug Core Information
+
+Table of Contents
+-----------------
+1. Debug Cores
+1.1 dbg_hub: (labtools_xsdbm_v3, implemented, inserted)
+1.2 t15_ila: (labtools_ila_v6, implemented, inserted)
+
+1. Debug Cores
+--------------
+
+1.1 dbg_hub: (labtools_xsdbm_v3, implemented, inserted)
+-------------------------------------------------------
+
+Parameter Data for Debug Core "dbg_hub"
++----------------------+-----------+
+| Parameter            | Value     |
++----------------------+-----------+
+| C_CLK_INPUT_FREQ_HZ  | 300000000 |
++----------------------+-----------+
+| C_ENABLE_CLK_DIVIDER | false     |
++----------------------+-----------+
+| C_USER_SCAN_CHAIN    | 1         |
++----------------------+-----------+
+
+
+Channel Data for Debug Core "dbg_hub"
++---------------+---------+---------------+------------------+----------+------------+---------------------------+
+| Port Name     | Port    | Port Spec     | Channel Name     | Net Type | MARK_DEBUG | Net Name                  |
+|               | Type    |               |                  |          |            |                           |
++---------------+---------+---------------+------------------+----------+------------+---------------------------+
+| clk           | input   | clk           | clk[0]           | signal   | false      | clk_100mhz_i_IBUF_BUFG    |
++---------------+---------+---------------+------------------+----------+------------+---------------------------+
+
+
+Peripherals Connected to Debug Hub 'dbg_hub' (1 Peripherals):
++-------+----------+---------------+
+| Index | Type     | Instance Name |
++-------+----------+---------------+
+| 0     | ila_v6_2 | t15_ila       |
++-------+----------+---------------+
+
+
+1.2 t15_ila: (labtools_ila_v6, implemented, inserted)
+-----------------------------------------------------
+
+UUID of Debug Core "t15_ila"
++----------------------------------+
+| UUID                             |
++----------------------------------+
+| A53F790903B8530AA65DDE436065F8AF |
++----------------------------------+
+
+
+Parameter Data for Debug Core "t15_ila"
++-----------------------+-------+
+| Parameter             | Value |
++-----------------------+-------+
+| ALL_PROBE_SAME_MU     | true  |
++-----------------------+-------+
+| ALL_PROBE_SAME_MU_CNT | 2     |
++-----------------------+-------+
+| C_ADV_TRIGGER         | false |
++-----------------------+-------+
+| C_DATA_DEPTH          | 4096  |
++-----------------------+-------+
+| C_EN_STRG_QUAL        | true  |
++-----------------------+-------+
+| C_INPUT_PIPE_STAGES   | 1     |
++-----------------------+-------+
+| C_TRIGIN_EN           | false |
++-----------------------+-------+
+| C_TRIGOUT_EN          | false |
++-----------------------+-------+
+
+
+Channel Data for Debug Core "t15_ila"
++---------------+---------+---------------+--------------------------------+------------------+----------+------------+-------------------------------------------+
+| Port Name     | Port    | Port Spec     | Parameters                     | Channel Name     | Net Type | MARK_DEBUG | Net Name                                  |
+|               | Type    |               |                                |                  |          |            |                                           |
++---------------+---------+---------------+--------------------------------+------------------+----------+------------+-------------------------------------------+
+| clk           | input   | clk           |                                | clk[0]           | signal   | false      | clk_100mhz_i_IBUF_BUFG                    |
++---------------+---------+---------------+--------------------------------+------------------+----------+------------+-------------------------------------------+
+| probe0        | input   | probe         | PROBE_TYPE=DATA_AND_TRIGGER    | probe0[0]        | signal   | true       | controller_active_observation_index[0]    |
+|               |         |               |                                | probe0[1]        | signal   | true       | controller_active_observation_index[1]    |
+|               |         |               |                                | probe0[2]        | signal   | true       | controller_active_observation_index[2]    |
+|               |         |               |                                | probe0[3]        | signal   | true       | controller_active_observation_index[3]    |
+|               |         |               |                                | probe0[4]        | signal   | true       | controller_active_observation_index[4]    |
+|               |         |               |                                | probe0[5]        | signal   | true       | controller_busy                           |
+|               |         |               |                                | probe0[6]        | signal   | true       | controller_engine_state[0]                |
+|               |         |               |                                | probe0[7]        | signal   | true       | controller_engine_state[1]                |
+|               |         |               |                                | probe0[8]        | signal   | true       | controller_engine_state[2]                |
+|               |         |               |                                | probe0[9]        | signal   | true       | controller_engine_state[3]                |
+|               |         |               |                                | probe0[10]       | signal   | true       | controller_engine_state[4]                |
+|               |         |               |                                | probe0[11]       | signal   | true       | controller_engine_state[5]                |
+|               |         |               |                                | probe0[12]       | signal   | true       | controller_engine_state[6]                |
+|               |         |               |                                | probe0[13]       | signal   | true       | controller_engine_state[7]                |
+|               |         |               |                                | probe0[14]       | signal   | true       | controller_job_done                       |
+|               |         |               |                                | probe0[15]       | signal   | true       | active_observation_index[0]               |
+|               |         |               |                                | probe0[16]       | signal   | true       | active_observation_index[1]               |
+|               |         |               |                                | probe0[17]       | signal   | true       | active_observation_index[2]               |
+|               |         |               |                                | probe0[18]       | signal   | true       | active_observation_index[3]               |
+|               |         |               |                                | probe0[19]       | signal   | true       | active_observation_index[4]               |
+|               |         |               |                                | probe0[20]       | signal   | true       | clip_done                                 |
+|               |         |               |                                | probe0[21]       | signal   | true       | clip_start                                |
+|               |         |               |                                | probe0[22]       | signal   | true       | constraint_done                           |
+|               |         |               |                                | probe0[23]       | signal   | true       | constraint_start                          |
+|               |         |               |                                | probe0[24]       | signal   | true       | current_vertex_buffer                     |
+|               |         |               |                                | probe0[25]       | signal   | true       | current_vertex_count[0]                   |
+|               |         |               |                                | probe0[26]       | signal   | true       | current_vertex_count[10]                  |
+|               |         |               |                                | probe0[27]       | signal   | true       | current_vertex_count[1]                   |
+|               |         |               |                                | probe0[28]       | signal   | true       | current_vertex_count[2]                   |
+|               |         |               |                                | probe0[29]       | signal   | true       | current_vertex_count[3]                   |
+|               |         |               |                                | probe0[30]       | signal   | true       | current_vertex_count[4]                   |
+|               |         |               |                                | probe0[31]       | signal   | true       | current_vertex_count[5]                   |
+|               |         |               |                                | probe0[32]       | signal   | true       | current_vertex_count[6]                   |
+|               |         |               |                                | probe0[33]       | signal   | true       | current_vertex_count[7]                   |
+|               |         |               |                                | probe0[34]       | signal   | true       | current_vertex_count[8]                   |
+|               |         |               |                                | probe0[35]       | signal   | true       | current_vertex_count[9]                   |
+|               |         |               |                                | probe0[36]       | signal   | true       | diameter_done                             |
+|               |         |               |                                | probe0[37]       | signal   | true       | diameter_start                            |
+|               |         |               |                                | probe0[38]       | signal   | true       | result_core_cycles[0]                     |
+|               |         |               |                                | probe0[39]       | signal   | true       | result_core_cycles[10]                    |
+|               |         |               |                                | probe0[40]       | signal   | true       | result_core_cycles[11]                    |
+|               |         |               |                                | probe0[41]       | signal   | true       | result_core_cycles[12]                    |
+|               |         |               |                                | probe0[42]       | signal   | true       | result_core_cycles[13]                    |
+|               |         |               |                                | probe0[43]       | signal   | true       | result_core_cycles[14]                    |
+|               |         |               |                                | probe0[44]       | signal   | true       | result_core_cycles[15]                    |
+|               |         |               |                                | probe0[45]       | signal   | true       | result_core_cycles[16]                    |
+|               |         |               |                                | probe0[46]       | signal   | true       | result_core_cycles[17]                    |
+|               |         |               |                                | probe0[47]       | signal   | true       | result_core_cycles[18]                    |
+|               |         |               |                                | probe0[48]       | signal   | true       | result_core_cycles[19]                    |
+|               |         |               |                                | probe0[49]       | signal   | true       | result_core_cycles[1]                     |
+|               |         |               |                                | probe0[50]       | signal   | true       | result_core_cycles[20]                    |
+|               |         |               |                                | probe0[51]       | signal   | true       | result_core_cycles[21]                    |
+|               |         |               |                                | probe0[52]       | signal   | true       | result_core_cycles[22]                    |
+|               |         |               |                                | probe0[53]       | signal   | true       | result_core_cycles[23]                    |
+|               |         |               |                                | probe0[54]       | signal   | true       | result_core_cycles[24]                    |
+|               |         |               |                                | probe0[55]       | signal   | true       | result_core_cycles[25]                    |
+|               |         |               |                                | probe0[56]       | signal   | true       | result_core_cycles[26]                    |
+|               |         |               |                                | probe0[57]       | signal   | true       | result_core_cycles[27]                    |
+|               |         |               |                                | probe0[58]       | signal   | true       | result_core_cycles[28]                    |
+|               |         |               |                                | probe0[59]       | signal   | true       | result_core_cycles[29]                    |
+|               |         |               |                                | probe0[60]       | signal   | true       | result_core_cycles[2]                     |
+|               |         |               |                                | probe0[61]       | signal   | true       | result_core_cycles[30]                    |
+|               |         |               |                                | probe0[62]       | signal   | true       | result_core_cycles[31]                    |
+|               |         |               |                                | probe0[63]       | signal   | true       | result_core_cycles[3]                     |
+|               |         |               |                                | probe0[64]       | signal   | true       | result_core_cycles[4]                     |
+|               |         |               |                                | probe0[65]       | signal   | true       | result_core_cycles[5]                     |
+|               |         |               |                                | probe0[66]       | signal   | true       | result_core_cycles[6]                     |
+|               |         |               |                                | probe0[67]       | signal   | true       | result_core_cycles[7]                     |
+|               |         |               |                                | probe0[68]       | signal   | true       | result_core_cycles[8]                     |
+|               |         |               |                                | probe0[69]       | signal   | true       | result_core_cycles[9]                     |
+|               |         |               |                                | probe0[70]       | signal   | true       | result_error_flags[0]                     |
+|               |         |               |                                | probe0[71]       | signal   | true       | result_error_flags[1]                     |
+|               |         |               |                                | probe0[72]       | signal   | true       | result_error_flags[2]                     |
+|               |         |               |                                | probe0[73]       | signal   | true       | result_error_flags[3]                     |
+|               |         |               |                                | probe0[74]       | signal   | true       | result_error_flags[4]                     |
+|               |         |               |                                | probe0[75]       | signal   | true       | result_error_flags[5]                     |
+|               |         |               |                                | probe0[76]       | signal   | true       | result_error_flags[6]                     |
+|               |         |               |                                | probe0[77]       | signal   | true       | result_error_flags[7]                     |
+|               |         |               |                                | probe0[78]       | signal   | true       | result_trusted                            |
+|               |         |               |                                | probe0[79]       | signal   | true       | result_valid                              |
+|               |         |               |                                | probe0[80]       | signal   | true       | result_vertex_count[0]                    |
+|               |         |               |                                | probe0[81]       | signal   | true       | result_vertex_count[10]                   |
+|               |         |               |                                | probe0[82]       | signal   | true       | result_vertex_count[1]                    |
+|               |         |               |                                | probe0[83]       | signal   | true       | result_vertex_count[2]                    |
+|               |         |               |                                | probe0[84]       | signal   | true       | result_vertex_count[3]                    |
+|               |         |               |                                | probe0[85]       | signal   | true       | result_vertex_count[4]                    |
+|               |         |               |                                | probe0[86]       | signal   | true       | result_vertex_count[5]                    |
+|               |         |               |                                | probe0[87]       | signal   | true       | result_vertex_count[6]                    |
+|               |         |               |                                | probe0[88]       | signal   | true       | result_vertex_count[7]                    |
+|               |         |               |                                | probe0[89]       | signal   | true       | result_vertex_count[8]                    |
+|               |         |               |                                | probe0[90]       | signal   | true       | result_vertex_count[9]                    |
++---------------+---------+---------------+--------------------------------+------------------+----------+------------+-------------------------------------------+
+
+

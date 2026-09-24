@@ -1,0 +1,31 @@
+#-----------------------------------------------------------
+# xsim v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Wed Sep 23 19:49:07 2026
+# Process ID         : 13348
+# Current directory  : C:/fpga_t14_packet_decoder
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/tb_packet_decoder_t14_sim/xsim_script.tcl}
+# Log file           : C:/fpga_t14_packet_decoder/xsim.log
+# Journal file       : C:/fpga_t14_packet_decoder\xsim.jou
+# Running On         : XiaoB
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : Intel(R) Core(TM) Ultra 5 125H
+# CPU Frequency      : 2995 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 18
+# Host memory        : 16666 MB
+# Swap memory        : 19910 MB
+# Total Virtual      : 36576 MB
+# Available Virtual  : 4798 MB
+#-----------------------------------------------------------
+source xsim.dir/tb_packet_decoder_t14_sim/xsim_script.tcl
+# xsim {tb_packet_decoder_t14_sim} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+PASS: packet_decoder directed and 256-frame randomized checks completed
+$finish called at time : 320190 ns : File "E:/BÌâ¸Ä½ø/fpga_stage1/tb/unit/tb_packet_decoder.v" Line 244
+exit
+INFO: [Common 17-206] Exiting xsim at Wed Sep 23 19:49:09 2026...

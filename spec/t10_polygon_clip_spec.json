@@ -1,0 +1,71 @@
+{
+  "title": "T10 sequential Sutherland-Hodgman polygon clipping contract",
+  "modules": [
+    {
+      "name": "polygon_clip_engine",
+      "feature": "t10_polygon_clip",
+      "rtl_path": "rtl/geometry/polygon_clip_engine.v",
+      "parameters": {"C_MAXIMUM_VERTEX_COUNT": 1024},
+      "interfaces": {"ports": [
+        {"name":"clk_i","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"clk_i"},
+        {"name":"reset_i","direction":"input","width":1,"role":"reset","description":"Active-high asynchronous reset","clock_domain":"clk_i"},
+        {"name":"start_i","direction":"input","width":1,"role":"control","description":"Start one half-plane clipping pass","clock_domain":"clk_i"},
+        {"name":"input_buffer_i","direction":"input","width":1,"role":"metadata","description":"Current input vertex RAM buffer","clock_domain":"clk_i"},
+        {"name":"input_vertex_count_i","direction":"input","width":11,"role":"metadata","description":"Number of valid input vertices","clock_domain":"clk_i"},
+        {"name":"coefficient_a_i","direction":"input","width":32,"role":"payload","description":"Signed Q2.30 X coefficient","clock_domain":"clk_i"},
+        {"name":"coefficient_b_i","direction":"input","width":32,"role":"payload","description":"Signed Q2.30 Y coefficient","clock_domain":"clk_i"},
+        {"name":"constant_c_i","direction":"input","width":66,"role":"payload","description":"Signed half-plane constant with 46 fractional bits","clock_domain":"clk_i"},
+        {"name":"busy_o","direction":"output","width":1,"role":"status","description":"Clipping pass is active","clock_domain":"clk_i"},
+        {"name":"done_o","direction":"output","width":1,"role":"status","description":"One-cycle clipping completion pulse","clock_domain":"clk_i"},
+        {"name":"protocol_error_o","direction":"output","width":1,"role":"error","description":"Start was asserted while busy","clock_domain":"clk_i"},
+        {"name":"output_buffer_o","direction":"output","width":1,"role":"metadata","description":"Output vertex RAM buffer","clock_domain":"clk_i"},
+        {"name":"output_vertex_count_o","direction":"output","width":11,"role":"result","description":"Number of valid output vertices","clock_domain":"clk_i"},
+        {"name":"empty_o","direction":"output","width":1,"role":"status","description":"Clipped polygon has no vertices","clock_domain":"clk_i"},
+        {"name":"result_trusted_o","direction":"output","width":1,"role":"status","description":"No numerical, capacity, parallel, or residual error occurred","clock_domain":"clk_i"},
+        {"name":"parallel_edge_o","direction":"output","width":1,"role":"error","description":"At least one crossing used the conservative near-parallel rule","clock_domain":"clk_i"},
+        {"name":"arithmetic_saturated_o","direction":"output","width":1,"role":"error","description":"A classifier or intersection saturated","clock_domain":"clk_i"},
+        {"name":"capacity_overflow_o","direction":"output","width":1,"role":"error","description":"An output candidate exceeded the 1024-vertex capacity","clock_domain":"clk_i"},
+        {"name":"quantization_margin_used_o","direction":"output","width":1,"role":"status","description":"A classification or generated intersection used negative tolerance","clock_domain":"clk_i"},
+        {"name":"residual_violation_o","direction":"output","width":1,"role":"error","description":"A generated intersection failed residual reclassification","clock_domain":"clk_i"},
+        {"name":"ram_read_enable_o","direction":"output","width":1,"role":"control","description":"Request one synchronous input-buffer read","clock_domain":"clk_i"},
+        {"name":"ram_read_buffer_o","direction":"output","width":1,"role":"metadata","description":"Captured input buffer selection","clock_domain":"clk_i"},
+        {"name":"ram_read_address_o","direction":"output","width":10,"role":"address","description":"Input vertex address","clock_domain":"clk_i"},
+        {"name":"ram_read_data_i","direction":"input","width":64,"role":"payload","description":"Packed signed Q16.16 X and Y read response","clock_domain":"clk_i"},
+        {"name":"ram_read_valid_i","direction":"input","width":1,"role":"valid","description":"Input vertex read response pulse","clock_domain":"clk_i"},
+        {"name":"ram_write_enable_o","direction":"output","width":1,"role":"valid","description":"Write one accepted output vertex","clock_domain":"clk_i"},
+        {"name":"ram_write_buffer_o","direction":"output","width":1,"role":"metadata","description":"Complement of the captured input buffer","clock_domain":"clk_i"},
+        {"name":"ram_write_address_o","direction":"output","width":10,"role":"address","description":"Sequential output vertex address","clock_domain":"clk_i"},
+        {"name":"ram_write_data_o","direction":"output","width":64,"role":"payload","description":"Packed signed Q16.16 output vertex","clock_domain":"clk_i"}
+      ]},
+      "clock":{"name":"clk_i","frequency_hz":100000000},
+      "reset":{"name":"reset_i","active":"high","synchronous":false},
+      "behavior":[
+        "Read the last input vertex first and then addresses zero through count minus one to close the polygon.",
+        "Reuse one half-plane classifier for endpoint and generated-intersection residual checks.",
+        "Emit B for inside-inside, intersection for inside-outside, intersection then B for outside-inside, and nothing for outside-outside.",
+        "Use the inner endpoint as a conservative output when a crossing is classified near-parallel.",
+        "Filter adjacent repeated vertices and remove a repeated closing vertex from the returned count.",
+        "Write accepted vertices sequentially into the opposite RAM buffer."
+      ],
+      "constraints":[
+        "The RAM read interface returns a one-cycle valid response for each request.",
+        "The maximum stored output count is 1024 vertices.",
+        "The upstream controller must wait while busy is asserted.",
+        "Any parallel, saturation, capacity, or residual flag makes result_trusted low."
+      ],
+      "corner_cases":[
+        "Zero input vertices complete without a RAM transaction and return empty.",
+        "A full-capacity input can generate an overflow candidate; the engine stops before an out-of-range write.",
+        "A boundary endpoint can be produced by adjacent edges and is written only once.",
+        "A denominator at the near-parallel threshold retains the inner endpoint and marks the result untrusted."
+      ],
+      "verification_cases":[
+        "Clip a square through all four edge transition cases and compare every output vertex.",
+        "Check all-inside, all-outside, empty-input, duplicate-endpoint, and near-parallel cases.",
+        "Use 1024 alternating inside and outside vertices to force capacity overflow without an out-of-range write.",
+        "Reject one busy-time start and check completion pulse width."
+      ],
+      "timing_diagrams":[{"id":"CLIP_EDGE","title":"Sequential edge classification and optional intersection","scenario":"edge","description":"Endpoint classification selects direct emission or stalls for the multicycle intersection and residual check.","wavejson":{"signal":[{"name":"clk_i","wave":"p..........."},{"name":"ram_read_enable_o","wave":"010..10...."},{"name":"classifier_start","wave":"0..10..10.."},{"name":"intersection_start","wave":"0........10"},{"name":"busy_o","wave":"01........."}]}}]
+    }
+  ]
+}

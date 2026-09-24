@@ -1,0 +1,73 @@
+{
+  "title": "T07 bearing constraint generator contract",
+  "modules": [
+    {
+      "name": "bearing_constraint_gen",
+      "feature": "t07_constraint",
+      "rtl_path": "rtl/geometry/bearing_constraint_gen.v",
+      "parameters": {"C_BEARING_DELTA_PHASE":"18'd732"},
+      "interfaces": {
+        "ports": [
+          {"name":"clk_i","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"clk_i"},
+          {"name":"reset_i","direction":"input","width":1,"role":"reset","description":"Active-high synchronous reset","clock_domain":"clk_i"},
+          {"name":"start_i","direction":"input","width":1,"role":"control","description":"Start one observation while idle","clock_domain":"clk_i"},
+          {"name":"sensor_x_i","direction":"input","width":32,"role":"payload","description":"Signed Q16.16 sensor X coordinate","clock_domain":"clk_i"},
+          {"name":"sensor_y_i","direction":"input","width":32,"role":"payload","description":"Signed Q16.16 sensor Y coordinate","clock_domain":"clk_i"},
+          {"name":"bearing_phase_i","direction":"input","width":18,"role":"payload","description":"Unsigned full-turn measured bearing phase","clock_domain":"clk_i"},
+          {"name":"busy_o","direction":"output","width":1,"role":"status","description":"Observation conversion is active","clock_domain":"clk_i"},
+          {"name":"done_o","direction":"output","width":1,"role":"status","description":"Upper constraint and operation completion pulse","clock_domain":"clk_i"},
+          {"name":"protocol_error_o","direction":"output","width":1,"role":"error","description":"Start was asserted while busy","clock_domain":"clk_i"},
+          {"name":"constraint_valid_o","direction":"output","width":1,"role":"valid","description":"One half-plane tuple is valid","clock_domain":"clk_i"},
+          {"name":"constraint_upper_o","direction":"output","width":1,"role":"metadata","description":"Zero for lower boundary and one for upper boundary","clock_domain":"clk_i"},
+          {"name":"coefficient_a_o","direction":"output","width":32,"role":"result","description":"Signed Q2.30 half-plane coefficient a","clock_domain":"clk_i"},
+          {"name":"coefficient_b_o","direction":"output","width":32,"role":"result","description":"Signed Q2.30 half-plane coefficient b","clock_domain":"clk_i"},
+          {"name":"constant_c_o","direction":"output","width":66,"role":"result","description":"Signed half-plane constant with 46 fractional bits","clock_domain":"clk_i"}
+        ]
+      },
+      "clock": {"name":"clk_i","frequency_hz":100000000},
+      "reset": {"name":"reset_i","active":"high","synchronous":true},
+      "behavior": [
+        "Capture one Q16.16 sensor position and one 18-bit measured bearing on an idle start.",
+        "Form lower and upper phases with modulo-2^18 subtraction and addition of 732 phase LSB.",
+        "Invoke cordic_sincos for the lower boundary and then for the upper boundary.",
+        "Emit the lower tuple a=-sin(lower), b=cos(lower), c=a*x+b*y before the upper tuple a=sin(upper), b=-cos(upper), c=a*x+b*y.",
+        "Time-share one registered signed 32 by 32 DSP multiplier across the four coordinate products.",
+        "Assert lower valid 25 cycles after acceptance and upper valid with done 45 cycles after acceptance."
+      ],
+      "constraints": [
+        "Coefficients are signed Q2.30 and coordinates are signed Q16.16.",
+        "Each coefficient-coordinate product is signed 64-bit; the sum is sign-extended to 66 bits with 46 fractional bits.",
+        "The embedded CORDIC interface is the T06 19-cycle contract."
+      ],
+      "corner_cases": [
+        "Phase arithmetic wraps naturally across zero and one full turn.",
+        "A repeated start while busy raises one protocol error pulse and does not overwrite the observation.",
+        "The two constraint valid pulses are ordered lower then upper."
+      ],
+      "verification_cases": [
+        "Check cardinal measured bearings at an origin sensor.",
+        "Check both sides of a 0-degree wrap with nonzero signed sensor coordinates.",
+        "Match four observations from the T02 geometry integration scenario.",
+        "Check fixed 25-cycle lower and 45-cycle completion latency and busy-start rejection."
+      ],
+      "timing_diagrams": [
+        {
+          "id":"CONSTRAINT_PAIR",
+          "title":"Lower and upper constraint generation",
+          "scenario":"constraint_pair",
+          "description":"One accepted observation produces ordered lower and upper constraint pulses; done accompanies the upper pulse.",
+          "wavejson": {
+            "signal": [
+              {"name":"clk_i","wave":"p..........."},
+              {"name":"start_i","wave":"010........."},
+              {"name":"busy_o","wave":"01........0."},
+              {"name":"constraint_valid_o","wave":"0....10...10"},
+              {"name":"constraint_upper_o","wave":"0.........1."},
+              {"name":"done_o","wave":"0..........1"}
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{ signal: [
+  { name: 'clk_i', wave: 'p....' },
+  { name: 'read_enable_i', wave: '010..' },
+  { name: 'read_address_i', wave: 'x=...', data: ['index'] },
+  { name: 'read_valid_o', wave: '0010.' },
+  { name: 'read_data_o', wave: 'x.=..', data: ['vertex'] }
+] }

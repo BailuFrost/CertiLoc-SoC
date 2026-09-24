@@ -1,0 +1,6 @@
+{ signal: [
+  { name: 'i_clk', wave: 'p.........' },
+  { name: 'i_start', wave: '010.......' },
+  { name: 'o_busy', wave: '01.......0' },
+  { name: 'o_done', wave: '0........1' }
+] }

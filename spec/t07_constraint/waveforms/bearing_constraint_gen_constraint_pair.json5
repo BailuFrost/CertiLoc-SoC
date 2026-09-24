@@ -1,0 +1,10 @@
+{
+  signal: [
+    { name: 'clk_i', wave: 'p...........' },
+    { name: 'start_i', wave: '010.........' },
+    { name: 'busy_o', wave: '01........0.' },
+    { name: 'constraint_valid_o', wave: '0....10...10' },
+    { name: 'constraint_upper_o', wave: '0.........1.' },
+    { name: 'done_o', wave: '0..........1' }
+  ]
+}

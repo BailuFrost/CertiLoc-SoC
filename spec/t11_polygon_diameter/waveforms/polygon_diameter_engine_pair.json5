@@ -1,0 +1,7 @@
+{ signal: [
+  { name: 'clk_i', wave: 'p.........' },
+  { name: 'ram_read_enable', wave: '010.......' },
+  { name: 'ram_read_valid', wave: '0010......' },
+  { name: 'pair_indices', wave: 'x=......=.', data: ['i,j', 'next'] },
+  { name: 'evaluated_pair_count_o', wave: 'x......=..', data: ['+1'] }
+] }

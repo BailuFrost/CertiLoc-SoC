@@ -1,0 +1,1 @@
+{signal:[{name:'frame_valid_i',wave:'01........0'},{name:'payload_read_enable_o',wave:'00101010...'},{name:'observation_write_valid_o',wave:'0......1.0.'},{name:'command_valid_o',wave:'0........10'}]}

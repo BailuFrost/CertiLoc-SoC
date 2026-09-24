@@ -1,0 +1,85 @@
+{
+  "title": "T05 frame codec contract",
+  "modules": [
+    {
+      "name": "crc16_ccitt_byte", "feature": "t05_protocol", "rtl_path": "rtl/comm/crc16_ccitt_byte.v",
+      "parameters": {"C_INITIAL_VALUE": "16'hFFFF", "C_POLYNOMIAL": "16'h1021"},
+      "interfaces": {"ports": [
+        {"name":"i_clk","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"i_clk"},
+        {"name":"i_reset","direction":"input","width":1,"role":"reset","description":"Active-high project reset","clock_domain":"i_clk"},
+        {"name":"i_start","direction":"input","width":1,"role":"control","description":"Accept one input byte when idle","clock_domain":"i_clk"},
+        {"name":"i_clear","direction":"input","width":1,"role":"control","description":"Start this byte from the initial CRC value","clock_domain":"i_clk"},
+        {"name":"i_data","direction":"input","width":8,"role":"payload","description":"Byte processed MSB first","clock_domain":"i_clk"},
+        {"name":"o_busy","direction":"output","width":1,"role":"status","description":"Eight bit iterations are active","clock_domain":"i_clk"},
+        {"name":"o_done","direction":"output","width":1,"role":"status","description":"One-clock completion pulse","clock_domain":"i_clk"},
+        {"name":"o_crc","direction":"output","width":16,"role":"result","description":"Current CRC remainder","clock_domain":"i_clk"}
+      ]},
+      "clock":{"name":"i_clk","frequency_hz":100000000}, "reset":{"name":"i_reset","active":"high","synchronous":true},
+      "behavior":["An accepted byte is processed MSB first in eight clocks using polynomial 0x1021.","i_clear and i_start together begin a new CRC at 0xFFFF."],
+      "constraints":["Synthesizable Verilog-2001.","A new start is accepted only while o_busy is low."],
+      "corner_cases":["The standard ASCII vector 123456789 produces 0x29B1."],
+      "verification_cases":["CRC_STANDARD_CHECK checks 123456789 against 0x29B1."],
+      "timing_diagrams":[{"id":"CRC_BYTE","title":"One byte CRC iteration","scenario":"byte","description":"Start launches eight serial CRC iterations and done pulses after the final update.","wavejson":{"signal":[{"name":"i_clk","wave":"p........."},{"name":"i_start","wave":"010......."},{"name":"o_busy","wave":"01.......0"},{"name":"o_done","wave":"0........1"}]}}]
+    },
+    {
+      "name":"packet_decoder", "feature":"t05_protocol", "rtl_path":"rtl/comm/packet_decoder.v",
+      "parameters":{"C_MAX_PAYLOAD_LENGTH":244,"C_TIMEOUT_CLKS":10000000},
+      "interfaces":{"ports":[
+        {"name":"i_clk","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"i_clk"},
+        {"name":"i_reset","direction":"input","width":1,"role":"reset","description":"Active-high project reset","clock_domain":"i_clk"},
+        {"name":"i_data","direction":"input","width":8,"role":"payload","description":"Byte from UART receiver","clock_domain":"i_clk"},
+        {"name":"i_data_valid","direction":"input","width":1,"role":"valid","description":"UART byte is valid","clock_domain":"i_clk"},
+        {"name":"o_data_ready","direction":"output","width":1,"role":"ready","description":"Decoder can accept a byte","clock_domain":"i_clk"},
+        {"name":"o_frame_valid","direction":"output","width":1,"role":"valid","description":"CRC-verified frame is committed","clock_domain":"i_clk"},
+        {"name":"i_frame_ready","direction":"input","width":1,"role":"ready","description":"Command controller accepts frame metadata","clock_domain":"i_clk"},
+        {"name":"o_frame_command","direction":"output","width":8,"role":"metadata","description":"Verified command byte","clock_domain":"i_clk"},
+        {"name":"o_frame_sequence","direction":"output","width":16,"role":"metadata","description":"Verified little-endian sequence","clock_domain":"i_clk"},
+        {"name":"o_frame_payload_length","direction":"output","width":8,"role":"metadata","description":"Verified payload byte count","clock_domain":"i_clk"},
+        {"name":"i_payload_read_enable","direction":"input","width":1,"role":"control","description":"Read committed payload memory","clock_domain":"i_clk"},
+        {"name":"i_payload_read_address","direction":"input","width":8,"role":"address","description":"Committed payload byte address","clock_domain":"i_clk"},
+        {"name":"o_payload_read_data","direction":"output","width":8,"role":"payload","description":"Synchronous payload read data","clock_domain":"i_clk"},
+        {"name":"o_payload_read_valid","direction":"output","width":1,"role":"valid","description":"Payload read response pulse","clock_domain":"i_clk"},
+        {"name":"o_error_valid","direction":"output","width":1,"role":"valid","description":"Protocol error report is available","clock_domain":"i_clk"},
+        {"name":"i_error_ready","direction":"input","width":1,"role":"ready","description":"Error consumer accepts report","clock_domain":"i_clk"},
+        {"name":"o_error_code","direction":"output","width":8,"role":"error","description":"T03 protocol error code","clock_domain":"i_clk"},
+        {"name":"o_error_command","direction":"output","width":8,"role":"error","description":"Command associated with the error","clock_domain":"i_clk"},
+        {"name":"o_error_sequence","direction":"output","width":16,"role":"error","description":"Sequence if already received","clock_domain":"i_clk"},
+        {"name":"o_error_context","direction":"output","width":32,"role":"error","description":"Error-specific diagnostic context","clock_domain":"i_clk"}
+      ]},
+      "clock":{"name":"i_clk","frequency_hz":100000000}, "reset":{"name":"i_reset","active":"high","synchronous":true},
+      "behavior":["Search overlapping A5 5A SOF, then parse version, command, sequence, length, payload and little-endian CRC.","Frame valid is asserted only after CRC success and remains high until frame ready.","Up to 244 payload bytes are stored internally and exposed through a synchronous read port.","Version, command, length, CRC and inter-byte timeout errors are held on a separate valid-ready channel."],
+      "constraints":["CRC covers VERSION through PAYLOAD and excludes SOF and CRC bytes.","Payload memory is not committed to the command controller before CRC success."],
+      "corner_cases":["A5 A5 5A treats the second A5 as the new SOF start.","LEN above 244 is rejected.","No accepted byte for 100 ms while inside a frame reports timeout."],
+      "verification_cases":["Decode GET_INFO.","Recover from overlapping SOF.","Read all bytes of READ_RESULT payload.","Reject a corrupted CRC.","Report inter-byte timeout."],
+      "timing_diagrams":[{"id":"DECODE_FRAME","title":"Frame commit after CRC","scenario":"valid_frame","description":"Input bytes may pause during CRC iteration; frame valid appears only after CRC high byte matches.","wavejson":{"signal":[{"name":"i_clk","wave":"p..........."},{"name":"i_data_valid","wave":"01.0.1.0.1."},{"name":"o_data_ready","wave":"10.1.0.1.0."},{"name":"o_frame_valid","wave":"0..........1"}]}}]
+    },
+    {
+      "name":"packet_encoder", "feature":"t05_protocol", "rtl_path":"rtl/comm/packet_encoder.v",
+      "parameters":{"C_MAX_PAYLOAD_LENGTH":244},
+      "interfaces":{"ports":[
+        {"name":"i_clk","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"i_clk"},
+        {"name":"i_reset","direction":"input","width":1,"role":"reset","description":"Active-high project reset","clock_domain":"i_clk"},
+        {"name":"i_frame_valid","direction":"input","width":1,"role":"valid","description":"Response metadata is valid","clock_domain":"i_clk"},
+        {"name":"o_frame_ready","direction":"output","width":1,"role":"ready","description":"Encoder accepts new metadata","clock_domain":"i_clk"},
+        {"name":"i_frame_command","direction":"input","width":8,"role":"metadata","description":"Response command","clock_domain":"i_clk"},
+        {"name":"i_frame_sequence","direction":"input","width":16,"role":"metadata","description":"Response sequence","clock_domain":"i_clk"},
+        {"name":"i_frame_payload_length","direction":"input","width":8,"role":"metadata","description":"Payload byte count","clock_domain":"i_clk"},
+        {"name":"i_payload_data","direction":"input","width":8,"role":"payload","description":"Streaming payload byte","clock_domain":"i_clk"},
+        {"name":"i_payload_valid","direction":"input","width":1,"role":"valid","description":"Streaming payload is valid","clock_domain":"i_clk"},
+        {"name":"o_payload_ready","direction":"output","width":1,"role":"ready","description":"Payload byte will be accepted","clock_domain":"i_clk"},
+        {"name":"o_data","direction":"output","width":8,"role":"payload","description":"Encoded byte toward UART TX","clock_domain":"i_clk"},
+        {"name":"o_data_valid","direction":"output","width":1,"role":"valid","description":"Encoded byte is valid","clock_domain":"i_clk"},
+        {"name":"i_data_ready","direction":"input","width":1,"role":"ready","description":"UART TX accepts encoded byte","clock_domain":"i_clk"},
+        {"name":"o_busy","direction":"output","width":1,"role":"status","description":"Frame encoding is active","clock_domain":"i_clk"},
+        {"name":"o_frame_done","direction":"output","width":1,"role":"status","description":"CRC high byte was accepted","clock_domain":"i_clk"},
+        {"name":"o_length_error","direction":"output","width":1,"role":"error","description":"Submitted payload length exceeds 244","clock_domain":"i_clk"}
+      ]},
+      "clock":{"name":"i_clk","frequency_hz":100000000}, "reset":{"name":"i_reset","active":"high","synchronous":true},
+      "behavior":["Emit A5 5A, version 01, command, little-endian sequence and length, streamed payload, then little-endian CRC.","Every output byte remains stable until UART TX accepts it.","CRC is updated only for accepted bytes from VERSION through PAYLOAD."],
+      "constraints":["Payload source must obey valid-ready stability.","Lengths above 244 are rejected without starting a frame."],
+      "corner_cases":["Zero-length payload proceeds directly from length high to CRC low.","UART backpressure stalls all state advancement."],
+      "verification_cases":["Encode the ACK golden frame.","Reject payload length 250."],
+      "timing_diagrams":[{"id":"ENCODE_FRAME","title":"Streaming response frame","scenario":"ack_frame","description":"Metadata starts a frame and payload bytes are requested only when the output accepts them.","wavejson":{"signal":[{"name":"i_clk","wave":"p..........."},{"name":"i_frame_valid","wave":"010........."},{"name":"o_busy","wave":"01.........0"},{"name":"o_data_valid","wave":"0.1.0.1.0.1"},{"name":"o_frame_done","wave":"0..........1"}]}}]
+    }
+  ]
+}

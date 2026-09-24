@@ -1,0 +1,6 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/cordic_sincos.v" into library work
+INFO: [VRFC 10-311] analyzing module cordic_sincos
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/bearing_constraint_gen.v" into library work
+INFO: [VRFC 10-311] analyzing module bearing_constraint_gen
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/tb/unit/tb_bearing_constraint_gen.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_bearing_constraint_gen

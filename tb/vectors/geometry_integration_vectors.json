@@ -1,0 +1,215 @@
+[
+  {
+    "name": "two_bearings",
+    "observations": [
+      [
+        -1000.0,
+        0.0,
+        2.602562202499806
+      ],
+      [
+        1000.0,
+        0.0,
+        176.82016988013575
+      ]
+    ],
+    "float_vertex_count": 4,
+    "fixed_vertex_count": 4,
+    "float_diameter_squared_m2": 484767.8294181878,
+    "float_quantized_phase_diameter_squared_m2": 485147.98396414943,
+    "fixed_diameter_squared_raw": 2083238196137585,
+    "fixed_diameter_squared_m2": 485041.6900910402,
+    "diameter_squared_error_m2": 273.8606728524319,
+    "diameter_error_m": 0.19663981454823443,
+    "quantized_path_diameter_error_m": 0.0763070933344352,
+    "trusted": true,
+    "parallel_edge": false,
+    "arithmetic_saturated": false,
+    "capacity_overflow": false,
+    "quantization_margin_used": true,
+    "vertices_q16_16": [
+      {
+        "x_raw": -16278934,
+        "y_raw": 3105230
+      },
+      {
+        "x_raw": 10019396,
+        "y_raw": 2107095
+      },
+      {
+        "x_raw": 29361265,
+        "y_raw": 2646502
+      },
+      {
+        "x_raw": 4868304,
+        "y_raw": 4438379
+      }
+    ]
+  },
+  {
+    "name": "four_bearings",
+    "observations": [
+      [
+        -1000.0,
+        0.0,
+        2.602562202499806
+      ],
+      [
+        1000.0,
+        0.0,
+        176.82016988013575
+      ],
+      [
+        0.0,
+        -1000.0,
+        84.55966796899449
+      ],
+      [
+        0.0,
+        1000.0,
+        276.00900595749454
+      ]
+    ],
+    "float_vertex_count": 6,
+    "fixed_vertex_count": 6,
+    "float_diameter_squared_m2": 2282.081586487049,
+    "float_quantized_phase_diameter_squared_m2": 2283.1146063206106,
+    "fixed_diameter_squared_raw": 9807396181357,
+    "fixed_diameter_squared_m2": 2283.4623654738534,
+    "diameter_squared_error_m2": 1.3807789868042164,
+    "diameter_error_m": 0.014449835808235889,
+    "quantized_path_diameter_error_m": 0.0036388837457508316,
+    "trusted": true,
+    "parallel_edge": false,
+    "arithmetic_saturated": false,
+    "capacity_overflow": false,
+    "quantization_margin_used": true,
+    "vertices_q16_16": [
+      {
+        "x_raw": 5391224,
+        "y_raw": 3963120
+      },
+      {
+        "x_raw": 5538844,
+        "y_raw": 2277151
+      },
+      {
+        "x_raw": 7652961,
+        "y_raw": 2196911
+      },
+      {
+        "x_raw": 7720226,
+        "y_raw": 2792240
+      },
+      {
+        "x_raw": 7541744,
+        "y_raw": 4242793
+      },
+      {
+        "x_raw": 5424932,
+        "y_raw": 4397657
+      }
+    ]
+  },
+  {
+    "name": "cross_zero",
+    "observations": [
+      [
+        -1000.0,
+        20.0,
+        359.6
+      ],
+      [
+        -900.0,
+        -20.0,
+        0.4
+      ]
+    ],
+    "float_vertex_count": 10,
+    "fixed_vertex_count": 10,
+    "float_diameter_squared_m2": 3742626.603246977,
+    "float_quantized_phase_diameter_squared_m2": 3742349.62893553,
+    "fixed_diameter_squared_raw": 16075582503063778,
+    "fixed_diameter_squared_m2": 3742888.221299224,
+    "diameter_squared_error_m2": 261.61805224698037,
+    "diameter_error_m": 0.06761481636044664,
+    "quantized_path_diameter_error_m": 0.1392010116446727,
+    "trusted": true,
+    "parallel_edge": false,
+    "arithmetic_saturated": false,
+    "capacity_overflow": false,
+    "quantization_margin_used": true,
+    "vertices_q16_16": [
+      {
+        "x_raw": -8823296,
+        "y_raw": -80376
+      },
+      {
+        "x_raw": 117232879,
+        "y_raw": -3172386
+      },
+      {
+        "x_raw": 117921976,
+        "y_raw": -3179667
+      },
+      {
+        "x_raw": 117937851,
+        "y_raw": -2573414
+      },
+      {
+        "x_raw": 117955817,
+        "y_raw": -1544127
+      },
+      {
+        "x_raw": 117964800,
+        "y_raw": -514722
+      },
+      {
+        "x_raw": 117964800,
+        "y_raw": 514722
+      },
+      {
+        "x_raw": 117955817,
+        "y_raw": 1544127
+      },
+      {
+        "x_raw": 117937851,
+        "y_raw": 2573414
+      },
+      {
+        "x_raw": 117925930,
+        "y_raw": 3028635
+      }
+    ]
+  },
+  {
+    "name": "incompatible",
+    "observations": [
+      [
+        -1000.0,
+        0.0,
+        180.0
+      ],
+      [
+        1000.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "float_vertex_count": 0,
+    "fixed_vertex_count": 0,
+    "float_diameter_squared_m2": 0.0,
+    "float_quantized_phase_diameter_squared_m2": 0.0,
+    "fixed_diameter_squared_raw": 0,
+    "fixed_diameter_squared_m2": 0.0,
+    "diameter_squared_error_m2": 0.0,
+    "diameter_error_m": 0.0,
+    "quantized_path_diameter_error_m": 0.0,
+    "trusted": true,
+    "parallel_edge": false,
+    "arithmetic_saturated": false,
+    "capacity_overflow": false,
+    "quantization_margin_used": true,
+    "vertices_q16_16": []
+  }
+]

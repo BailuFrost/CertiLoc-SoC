@@ -1,0 +1,23 @@
+Vivado Simulator v2024.2.0
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: E:/Vivado/2024.2/bin/unwrapped/win64.o/xelab.exe tb_localization_command_ctrl -s tb_localization_command_ctrl_t14_sim 
+Multi-threading is on. Using 16 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.initial_polygon_rom
+Compiling module work.initial_polygon_loader
+Compiling module work.cordic_sincos
+Compiling module work.bearing_constraint_gen
+Compiling module work.halfplane_classifier
+Compiling module work.segment_intersection
+Compiling module work.polygon_clip_engine
+Compiling module work.polygon_diameter_engine
+Compiling module work.vertex_ram_dual_buffer
+Compiling module work.localization_command_ctrl
+Compiling module work.tb_localization_command_ctrl
+Built simulation snapshot tb_localization_command_ctrl_t14_sim

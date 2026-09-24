@@ -1,0 +1,74 @@
+{
+  "title": "T08 vertex memory and initial polygon loader contract",
+  "modules": [
+    {
+      "name":"initial_polygon_rom", "feature":"t08_vertex_memory", "rtl_path":"rtl/memory/initial_polygon_rom.v",
+      "parameters":{"C_INIT_FILE":"initial_polygon_720_q16_16.mem"},
+      "interfaces":{"ports":[
+        {"name":"clk_i","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"clk_i"},
+        {"name":"read_enable_i","direction":"input","width":1,"role":"control","description":"Request one synchronous ROM read","clock_domain":"clk_i"},
+        {"name":"read_address_i","direction":"input","width":10,"role":"address","description":"Vertex index 0 through 719","clock_domain":"clk_i"},
+        {"name":"read_data_o","direction":"output","width":64,"role":"result","description":"Packed signed Q16.16 X then Y vertex","clock_domain":"clk_i"},
+        {"name":"read_valid_o","direction":"output","width":1,"role":"valid","description":"One-cycle read response valid","clock_domain":"clk_i"}
+      ]},
+      "clock":{"name":"clk_i","frequency_hz":100000000}, "reset":{"name":"none","active":"none","synchronous":true},
+      "behavior":["Load 720 packed vertices from the frozen T02 memory file.","Return one registered read response one clock after each enabled in-range request.","Return zero data for addresses 720 through 1023."],
+      "constraints":["Vertices are ordered counter-clockwise.","Each word packs signed Q16.16 X in bits 63:32 and signed Q16.16 Y in bits 31:0."],
+      "corner_cases":["Out-of-range addresses return zero with a valid response."],
+      "verification_cases":["Read all 720 words through the loader and compare bit-exactly with the T02 memory image."],
+      "timing_diagrams":[{"id":"ROM_READ","title":"Synchronous vertex ROM read","scenario":"read","description":"A request produces registered data and valid on the following clock.","wavejson":{"signal":[{"name":"clk_i","wave":"p...."},{"name":"read_enable_i","wave":"010.."},{"name":"read_address_i","wave":"x=...","data":["index"]},{"name":"read_valid_o","wave":"0010."},{"name":"read_data_o","wave":"x.=..","data":["vertex"]}]}}]
+    },
+    {
+      "name":"vertex_ram_dual_buffer", "feature":"t08_vertex_memory", "rtl_path":"rtl/memory/vertex_ram_dual_buffer.v",
+      "parameters":{},
+      "interfaces":{"ports":[
+        {"name":"clk_i","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"clk_i"},
+        {"name":"reset_i","direction":"input","width":1,"role":"reset","description":"Active-high synchronous output reset","clock_domain":"clk_i"},
+        {"name":"port_0_enable_i","direction":"input","width":1,"role":"control","description":"Port 0 transaction enable","clock_domain":"clk_i"},
+        {"name":"port_0_write_i","direction":"input","width":1,"role":"control","description":"Port 0 write selection","clock_domain":"clk_i"},
+        {"name":"port_0_buffer_i","direction":"input","width":1,"role":"metadata","description":"Port 0 buffer A or B selection","clock_domain":"clk_i"},
+        {"name":"port_0_address_i","direction":"input","width":10,"role":"address","description":"Port 0 vertex address","clock_domain":"clk_i"},
+        {"name":"port_0_write_data_i","direction":"input","width":64,"role":"payload","description":"Port 0 packed vertex write data","clock_domain":"clk_i"},
+        {"name":"port_0_read_data_o","direction":"output","width":64,"role":"result","description":"Port 0 registered read data","clock_domain":"clk_i"},
+        {"name":"port_0_read_valid_o","direction":"output","width":1,"role":"valid","description":"Port 0 read response pulse","clock_domain":"clk_i"},
+        {"name":"port_1_enable_i","direction":"input","width":1,"role":"control","description":"Port 1 transaction enable","clock_domain":"clk_i"},
+        {"name":"port_1_write_i","direction":"input","width":1,"role":"control","description":"Port 1 write selection","clock_domain":"clk_i"},
+        {"name":"port_1_buffer_i","direction":"input","width":1,"role":"metadata","description":"Port 1 buffer A or B selection","clock_domain":"clk_i"},
+        {"name":"port_1_address_i","direction":"input","width":10,"role":"address","description":"Port 1 vertex address","clock_domain":"clk_i"},
+        {"name":"port_1_write_data_i","direction":"input","width":64,"role":"payload","description":"Port 1 packed vertex write data","clock_domain":"clk_i"},
+        {"name":"port_1_read_data_o","direction":"output","width":64,"role":"result","description":"Port 1 registered read data","clock_domain":"clk_i"},
+        {"name":"port_1_read_valid_o","direction":"output","width":1,"role":"valid","description":"Port 1 read response pulse","clock_domain":"clk_i"}
+      ]},
+      "clock":{"name":"clk_i","frequency_hz":100000000}, "reset":{"name":"reset_i","active":"high","synchronous":true},
+      "behavior":["Provide two logical 1024 by 64-bit vertex buffers selected independently by each port.","Map the buffer selector to physical address bit 10 of one 2048 by 64-bit single-clock true-dual-port Block RAM template.","Each port performs one synchronous read or write per enabled clock.","Read responses are registered and valid for one clock."],
+      "constraints":["Do not access one physical address from both ports in the same cycle when either port writes; same-address read/write and dual-write results are undefined.","Memory contents are not cleared by reset; only read outputs and valid flags reset."],
+      "corner_cases":["Concurrent access to different buffers is independent.","Concurrent writes to different addresses of one buffer are supported."],
+      "verification_cases":["Write and read different buffers concurrently.","Write distinct addresses in one buffer concurrently and read them back through opposite ports."],
+      "timing_diagrams":[{"id":"DUAL_READ","title":"Concurrent dual-buffer reads","scenario":"dual_read","description":"Both ports independently return a registered vertex.","wavejson":{"signal":[{"name":"clk_i","wave":"p...."},{"name":"port_0_enable_i","wave":"010.."},{"name":"port_1_enable_i","wave":"010.."},{"name":"port_0_read_valid_o","wave":"0010."},{"name":"port_1_read_valid_o","wave":"0010."}]}}]
+    },
+    {
+      "name":"initial_polygon_loader", "feature":"t08_vertex_memory", "rtl_path":"rtl/memory/initial_polygon_loader.v",
+      "parameters":{"C_ROM_INIT_FILE":"initial_polygon_720_q16_16.mem"},
+      "interfaces":{"ports":[
+        {"name":"clk_i","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"clk_i"},
+        {"name":"reset_i","direction":"input","width":1,"role":"reset","description":"Active-high asynchronous reset","clock_domain":"clk_i"},
+        {"name":"start_i","direction":"input","width":1,"role":"control","description":"Start loading one selected buffer","clock_domain":"clk_i"},
+        {"name":"target_buffer_i","direction":"input","width":1,"role":"metadata","description":"Zero selects buffer A and one selects buffer B","clock_domain":"clk_i"},
+        {"name":"busy_o","direction":"output","width":1,"role":"status","description":"Loading is active","clock_domain":"clk_i"},
+        {"name":"done_o","direction":"output","width":1,"role":"status","description":"Last vertex write completion pulse","clock_domain":"clk_i"},
+        {"name":"protocol_error_o","direction":"output","width":1,"role":"error","description":"Start was asserted while busy","clock_domain":"clk_i"},
+        {"name":"ram_write_enable_o","direction":"output","width":1,"role":"valid","description":"Write one ROM response into vertex RAM","clock_domain":"clk_i"},
+        {"name":"ram_write_buffer_o","direction":"output","width":1,"role":"metadata","description":"Captured target buffer selection","clock_domain":"clk_i"},
+        {"name":"ram_write_address_o","direction":"output","width":10,"role":"address","description":"Vertex RAM write address","clock_domain":"clk_i"},
+        {"name":"ram_write_data_o","direction":"output","width":64,"role":"payload","description":"Packed vertex RAM write data","clock_domain":"clk_i"},
+        {"name":"loaded_vertex_count_o","direction":"output","width":11,"role":"status","description":"Completed vertex write count","clock_domain":"clk_i"}
+      ]},
+      "clock":{"name":"clk_i","frequency_hz":100000000}, "reset":{"name":"reset_i","active":"high","synchronous":false},
+      "behavior":["Capture the target buffer and stream ROM addresses 0 through 719 on consecutive clocks.","Align each synchronous ROM response with the corresponding RAM address.","Complete the final write and assert done 721 cycles after accepting start."],
+      "constraints":["The RAM write interface must connect to one write-capable port of vertex_ram_dual_buffer.","The target buffer remains constant for the entire load."],
+      "corner_cases":["A busy-time start emits one protocol error pulse and cannot change the target buffer.","The count becomes 720 with the same edge that asserts done."],
+      "verification_cases":["Load and compare all 720 vertices into buffer A.","Load and compare all 720 vertices into buffer B while confirming buffer A is preserved.","Check fixed latency, count, single-cycle done, and busy-start rejection."],
+      "timing_diagrams":[{"id":"POLYGON_LOAD","title":"Pipelined initial polygon load","scenario":"load","description":"After startup, ROM responses generate consecutive RAM writes through the final vertex.","wavejson":{"signal":[{"name":"clk_i","wave":"p........"},{"name":"start_i","wave":"010......"},{"name":"busy_o","wave":"01.....0."},{"name":"ram_write_enable_o","wave":"0.1...10."},{"name":"ram_write_address_o","wave":"x.=...=..","data":["0","719"]},{"name":"done_o","wave":"0......10"}]}}]
+    }
+  ]
+}

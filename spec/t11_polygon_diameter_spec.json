@@ -1,0 +1,69 @@
+{
+  "title": "T11 exhaustive polygon diameter engine contract",
+  "modules": [
+    {
+      "name": "polygon_diameter_engine",
+      "feature": "t11_polygon_diameter",
+      "rtl_path": "rtl/geometry/polygon_diameter_engine.v",
+      "parameters": {"C_MAXIMUM_VERTEX_COUNT": 1024},
+      "interfaces": {"ports": [
+        {"name":"clk_i","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"clk_i"},
+        {"name":"reset_i","direction":"input","width":1,"role":"reset","description":"Active-high asynchronous reset","clock_domain":"clk_i"},
+        {"name":"start_i","direction":"input","width":1,"role":"control","description":"Start one exhaustive diameter scan","clock_domain":"clk_i"},
+        {"name":"vertex_buffer_i","direction":"input","width":1,"role":"metadata","description":"Vertex RAM buffer selection","clock_domain":"clk_i"},
+        {"name":"vertex_count_i","direction":"input","width":11,"role":"metadata","description":"Number of valid vertices","clock_domain":"clk_i"},
+        {"name":"busy_o","direction":"output","width":1,"role":"status","description":"Pair scan is active","clock_domain":"clk_i"},
+        {"name":"done_o","direction":"output","width":1,"role":"status","description":"One-cycle result completion pulse","clock_domain":"clk_i"},
+        {"name":"protocol_error_o","direction":"output","width":1,"role":"error","description":"Start was asserted while busy","clock_domain":"clk_i"},
+        {"name":"empty_o","direction":"output","width":1,"role":"status","description":"Input polygon has zero vertices","clock_domain":"clk_i"},
+        {"name":"result_trusted_o","direction":"output","width":1,"role":"status","description":"No arithmetic or input-count error occurred","clock_domain":"clk_i"},
+        {"name":"arithmetic_saturated_o","direction":"output","width":1,"role":"error","description":"Distance sum exceeded the 66-bit result range","clock_domain":"clk_i"},
+        {"name":"input_count_error_o","direction":"output","width":1,"role":"error","description":"Vertex count exceeded physical RAM capacity","clock_domain":"clk_i"},
+        {"name":"maximum_distance_squared_o","direction":"output","width":66,"role":"result","description":"Maximum squared Q16.16 coordinate distance with 32 fractional bits","clock_domain":"clk_i"},
+        {"name":"farthest_first_index_o","direction":"output","width":10,"role":"result","description":"First index of the selected farthest pair","clock_domain":"clk_i"},
+        {"name":"farthest_second_index_o","direction":"output","width":10,"role":"result","description":"Second index of the selected farthest pair","clock_domain":"clk_i"},
+        {"name":"evaluated_pair_count_o","direction":"output","width":20,"role":"status","description":"Number of completed i less than j pairs","clock_domain":"clk_i"},
+        {"name":"ram_first_read_enable_o","direction":"output","width":1,"role":"control","description":"Request the first endpoint through RAM port zero","clock_domain":"clk_i"},
+        {"name":"ram_first_read_buffer_o","direction":"output","width":1,"role":"metadata","description":"Captured buffer selection for the first endpoint","clock_domain":"clk_i"},
+        {"name":"ram_first_read_address_o","direction":"output","width":10,"role":"address","description":"First endpoint index i","clock_domain":"clk_i"},
+        {"name":"ram_first_read_data_i","direction":"input","width":64,"role":"payload","description":"Packed first endpoint read response","clock_domain":"clk_i"},
+        {"name":"ram_first_read_valid_i","direction":"input","width":1,"role":"valid","description":"First endpoint read response pulse","clock_domain":"clk_i"},
+        {"name":"ram_second_read_enable_o","direction":"output","width":1,"role":"control","description":"Request the second endpoint through RAM port one","clock_domain":"clk_i"},
+        {"name":"ram_second_read_buffer_o","direction":"output","width":1,"role":"metadata","description":"Captured buffer selection for the second endpoint","clock_domain":"clk_i"},
+        {"name":"ram_second_read_address_o","direction":"output","width":10,"role":"address","description":"Second endpoint index j","clock_domain":"clk_i"},
+        {"name":"ram_second_read_data_i","direction":"input","width":64,"role":"payload","description":"Packed second endpoint read response","clock_domain":"clk_i"},
+        {"name":"ram_second_read_valid_i","direction":"input","width":1,"role":"valid","description":"Second endpoint read response pulse","clock_domain":"clk_i"}
+      ]},
+      "clock":{"name":"clk_i","frequency_hz":100000000},
+      "reset":{"name":"reset_i","active":"high","synchronous":false},
+      "behavior":[
+        "Enumerate every vertex pair in lexicographic order with zero less than or equal to i less than j less than count.",
+        "Read both vertices concurrently from the two RAM ports.",
+        "Form signed 33-bit coordinate differences, calculate two 66-bit squares, and add them with a 67-bit guard result.",
+        "Update the maximum only on a strictly greater distance so equal maxima retain the first lexicographic pair.",
+        "Issue one pair per clock and complete one nontrivial scan in pair-count plus four clocks."
+      ],
+      "constraints":[
+        "Coordinates are signed Q16.16 and the distance result has 32 fractional bits.",
+        "Vertex counts above 1024 fail before any RAM read.",
+        "The RAM ports return simultaneous one-cycle valid responses for each request.",
+        "The upstream controller must wait while busy is asserted."
+      ],
+      "corner_cases":[
+        "Zero vertices return empty with distance zero and indices zero,zero.",
+        "One vertex returns distance zero and indices zero,zero.",
+        "Two vertices evaluate exactly one pair.",
+        "All identical vertices retain pair zero,one even though every distance is zero.",
+        "Opposite signed coordinate extremes fit the 66-bit output without saturation."
+      ],
+      "verification_cases":[
+        "Check zero, one, and two vertex inputs.",
+        "Check a rectangle with tied diagonals and a signed-coordinate five-vertex polygon.",
+        "Check identical points, full signed coordinate span, and an input count above capacity.",
+        "Check all 258840 pairs of the 720-vertex stage-one baseline at one issued pair per clock.",
+        "Check pair count, latency formula, pulse width, buffer selection, and busy-start rejection."
+      ],
+      "timing_diagrams":[{"id":"PAIR","title":"One exhaustive distance pair","scenario":"pair","description":"Both RAM endpoints are read together before subtract, two multiplications, sum, maximum update, and index advance.","wavejson":{"signal":[{"name":"clk_i","wave":"p........."},{"name":"ram_read_enable","wave":"010......."},{"name":"ram_read_valid","wave":"0010......"},{"name":"pair_indices","wave":"x=......=.","data":["i,j","next"]},{"name":"evaluated_pair_count_o","wave":"x......=..","data":["+1"]}]}}]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/memory/vertex_ram_dual_buffer.v" into library work
+INFO: [VRFC 10-311] analyzing module vertex_ram_dual_buffer
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/halfplane_classifier.v" into library work
+INFO: [VRFC 10-311] analyzing module halfplane_classifier
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/segment_intersection.v" into library work
+INFO: [VRFC 10-311] analyzing module segment_intersection
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/polygon_clip_engine.v" into library work
+INFO: [VRFC 10-311] analyzing module polygon_clip_engine
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/tb/unit/tb_polygon_clip_engine.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_polygon_clip_engine

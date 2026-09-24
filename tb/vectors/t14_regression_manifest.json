@@ -1,0 +1,269 @@
+{
+  "case_count": 24,
+  "cases": [
+    {
+      "index": 0,
+      "name": "cross_zero",
+      "category": "phase_boundary",
+      "observation_count": 2,
+      "vertex_count": 5,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 11933545315335309,
+      "error_flags": 65
+    },
+    {
+      "index": 1,
+      "name": "opposing_empty",
+      "category": "empty_region",
+      "observation_count": 2,
+      "vertex_count": 0,
+      "trusted": true,
+      "region_type": 0,
+      "distance_squared_raw": 0,
+      "error_flags": 65
+    },
+    {
+      "index": 2,
+      "name": "negative_coordinates",
+      "category": "coordinate_boundary",
+      "observation_count": 2,
+      "vertex_count": 4,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 61133868004225,
+      "error_flags": 65
+    },
+    {
+      "index": 3,
+      "name": "circle_boundary",
+      "category": "coordinate_boundary",
+      "observation_count": 3,
+      "vertex_count": 8,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 58528253648776,
+      "error_flags": 65
+    },
+    {
+      "index": 4,
+      "name": "maximum_observations_0000",
+      "category": "maximum_observations",
+      "observation_count": 20,
+      "vertex_count": 5,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 1653819063905,
+      "error_flags": 65
+    },
+    {
+      "index": 5,
+      "name": "near_parallel_bearings",
+      "category": "near_parallel",
+      "observation_count": 4,
+      "vertex_count": 8,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 40613643724202,
+      "error_flags": 65
+    },
+    {
+      "index": 6,
+      "name": "random_consistent_0000",
+      "category": "random_consistent",
+      "observation_count": 5,
+      "vertex_count": 5,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 7084088038498,
+      "error_flags": 65
+    },
+    {
+      "index": 7,
+      "name": "random_consistent_0001",
+      "category": "random_consistent",
+      "observation_count": 4,
+      "vertex_count": 4,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 8974449372817,
+      "error_flags": 65
+    },
+    {
+      "index": 8,
+      "name": "random_consistent_0002",
+      "category": "random_consistent",
+      "observation_count": 8,
+      "vertex_count": 5,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 4771833243040,
+      "error_flags": 65
+    },
+    {
+      "index": 9,
+      "name": "random_consistent_0003",
+      "category": "random_consistent",
+      "observation_count": 17,
+      "vertex_count": 5,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 1245328175930,
+      "error_flags": 65
+    },
+    {
+      "index": 10,
+      "name": "random_consistent_0004",
+      "category": "random_consistent",
+      "observation_count": 20,
+      "vertex_count": 6,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 2188973608354,
+      "error_flags": 65
+    },
+    {
+      "index": 11,
+      "name": "random_consistent_0005",
+      "category": "random_consistent",
+      "observation_count": 10,
+      "vertex_count": 6,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 4796369204357,
+      "error_flags": 65
+    },
+    {
+      "index": 12,
+      "name": "random_consistent_0006",
+      "category": "random_consistent",
+      "observation_count": 7,
+      "vertex_count": 6,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 3862211778541,
+      "error_flags": 65
+    },
+    {
+      "index": 13,
+      "name": "random_consistent_0007",
+      "category": "random_consistent",
+      "observation_count": 8,
+      "vertex_count": 4,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 3811314534689,
+      "error_flags": 65
+    },
+    {
+      "index": 14,
+      "name": "random_consistent_0008",
+      "category": "random_consistent",
+      "observation_count": 5,
+      "vertex_count": 4,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 14749984407341,
+      "error_flags": 65
+    },
+    {
+      "index": 15,
+      "name": "random_consistent_0009",
+      "category": "random_consistent",
+      "observation_count": 4,
+      "vertex_count": 5,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 10415497760770,
+      "error_flags": 65
+    },
+    {
+      "index": 16,
+      "name": "random_consistent_0010",
+      "category": "random_consistent",
+      "observation_count": 6,
+      "vertex_count": 4,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 1667596852058,
+      "error_flags": 65
+    },
+    {
+      "index": 17,
+      "name": "random_consistent_0011",
+      "category": "random_consistent",
+      "observation_count": 7,
+      "vertex_count": 5,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 7792744766813,
+      "error_flags": 65
+    },
+    {
+      "index": 18,
+      "name": "random_consistent_0012",
+      "category": "random_consistent",
+      "observation_count": 13,
+      "vertex_count": 7,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 3398442993860,
+      "error_flags": 65
+    },
+    {
+      "index": 19,
+      "name": "random_consistent_0013",
+      "category": "random_consistent",
+      "observation_count": 20,
+      "vertex_count": 6,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 965576536613,
+      "error_flags": 65
+    },
+    {
+      "index": 20,
+      "name": "random_consistent_0014",
+      "category": "random_consistent",
+      "observation_count": 9,
+      "vertex_count": 8,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 4395335098832,
+      "error_flags": 65
+    },
+    {
+      "index": 21,
+      "name": "random_consistent_0015",
+      "category": "random_consistent",
+      "observation_count": 4,
+      "vertex_count": 5,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 14070514439690,
+      "error_flags": 65
+    },
+    {
+      "index": 22,
+      "name": "random_consistent_0016",
+      "category": "random_consistent",
+      "observation_count": 3,
+      "vertex_count": 5,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 14577190405154,
+      "error_flags": 65
+    },
+    {
+      "index": 23,
+      "name": "random_consistent_0017",
+      "category": "random_consistent",
+      "observation_count": 18,
+      "vertex_count": 4,
+      "trusted": true,
+      "region_type": 3,
+      "distance_squared_raw": 2165064539053,
+      "error_flags": 65
+    }
+  ]
+}

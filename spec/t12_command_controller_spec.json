@@ -1,0 +1,58 @@
+{
+  "title": "T12 localization command controller and integrated error-state contract",
+  "modules": [
+    {
+      "name": "localization_command_ctrl",
+      "feature": "t12_command_controller",
+      "rtl_path": "rtl/control/localization_command_ctrl.v",
+      "parameters": {
+        "C_ROM_INIT_FILE": "initial_polygon_720_q16_16.mem",
+        "C_CHILD_TIMEOUT_CYCLES": 10000000
+      },
+      "clock": {"name": "clk_i", "frequency_hz": 100000000},
+      "reset": {"name": "reset_i", "active": "high", "synchronous": false},
+      "interfaces": {
+        "command": "ready/valid semantic transaction emitted only after T05 frame validation",
+        "observation_staging": "indexed write port followed by atomic LOAD_OBSERVATIONS commit",
+        "response": "held response descriptor consumed by a later packet adapter",
+        "result": "persistent summary plus an idle-only synchronous final-vertex read window"
+      },
+      "behavior": [
+        "Accept fixed-configuration, observation-load, start, query, result-read, and abort commands.",
+        "Run initial polygon load, two half-plane clips per observation, and final exhaustive diameter in order.",
+        "Maintain the current vertex buffer and count while exclusively arbitrating both RAM ports.",
+        "Lift quantization, parallel, arithmetic, capacity, timeout, illegal-state, and abort conditions into protocol result flags.",
+        "Keep a completed result stable until a new valid observation set, new job, abort, or reset changes its validity."
+      ],
+      "constraints": [
+        "The upstream payload adapter must write only CRC-validated observations before issuing LOAD_OBSERVATIONS.",
+        "Observation count is limited to 2 through 20 and each phase value is already reduced to 18 bits.",
+        "SET_CONFIG asserts command_config_matches_i only for the frozen 28-byte T03 numeric contract.",
+        "Only ABORT and read-only queries are accepted without a BUSY error during computation.",
+        "No synthesis, implementation timing, or board-level claims are implied by module simulation."
+      ],
+      "corner_cases": [
+        "START before configuration reports parameter error.",
+        "Invalid observation counts do not modify the active observation set.",
+        "An empty clip result skips remaining constraints and returns an EMPTY result.",
+        "ABORT resets all child engines, invalidates the result, and permits a clean restart.",
+        "A watchdog expiration makes the result INVALID and sets the timeout flag."
+      ],
+      "verification_cases": [
+        "Reject invalid configuration, invalid observation count, early START, and repeated START while busy.",
+        "Match the T02 bit-exact four-vertex normal result and diameter.",
+        "Return a bit-exact empty result for incompatible bearings.",
+        "Read one final vertex through the idle result window.",
+        "Abort during initial polygon loading and successfully execute the next job."
+      ],
+      "timing_diagrams": [
+        {
+          "id": "JOB",
+          "title": "Accepted localization job",
+          "scenario": "job",
+          "description": "A START acknowledgement precedes load, repeated constraint/clip phases, diameter, and persistent result-ready state."
+        }
+      ]
+    }
+  ]
+}

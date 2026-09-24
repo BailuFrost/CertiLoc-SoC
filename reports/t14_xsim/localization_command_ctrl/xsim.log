@@ -1,0 +1,61 @@
+#-----------------------------------------------------------
+# xsim v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Wed Sep 23 20:25:30 2026
+# Process ID         : 13048
+# Current directory  : C:/fpga_t14_controller
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/tb_localization_command_ctrl_t14_sim/xsim_script.tcl}
+# Log file           : C:/fpga_t14_controller/xsim.log
+# Journal file       : C:/fpga_t14_controller\xsim.jou
+# Running On         : XiaoB
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : Intel(R) Core(TM) Ultra 5 125H
+# CPU Frequency      : 2995 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 18
+# Host memory        : 16666 MB
+# Swap memory        : 19240 MB
+# Total Virtual      : 35906 MB
+# Available Virtual  : 6777 MB
+#-----------------------------------------------------------
+source xsim.dir/tb_localization_command_ctrl_t14_sim/xsim_script.tcl
+# xsim {tb_localization_command_ctrl_t14_sim} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+INFO: job cycles=12607 vertices=4 distance2=17179868135424016 flags=41
+INFO: job cycles=12249 vertices=0 distance2=0 flags=41
+INFO: job cycles=12533 vertices=5 distance2=11933545315335309 flags=41
+INFO: job cycles=12249 vertices=0 distance2=0 flags=41
+INFO: job cycles=12585 vertices=4 distance2=61133868004225 flags=41
+INFO: job cycles=13245 vertices=8 distance2=58528253648776 flags=41
+INFO: job cycles=16524 vertices=5 distance2=1653819063905 flags=41
+INFO: job cycles=13494 vertices=8 distance2=40613643724202 flags=41
+INFO: job cycles=13718 vertices=5 distance2=7084088038498 flags=41
+INFO: job cycles=12991 vertices=4 distance2=8974449372817 flags=41
+INFO: job cycles=14281 vertices=5 distance2=4771833243040 flags=41
+INFO: job cycles=16318 vertices=5 distance2=1245328175930 flags=41
+INFO: job cycles=17642 vertices=6 distance2=2188973608354 flags=41
+INFO: job cycles=15518 vertices=6 distance2=4796369204357 flags=41
+INFO: job cycles=15114 vertices=6 distance2=3862211778541 flags=41
+INFO: job cycles=14677 vertices=4 distance2=3811314534689 flags=41
+INFO: job cycles=13108 vertices=4 distance2=14749984407341 flags=41
+INFO: job cycles=13181 vertices=5 distance2=10415497760770 flags=41
+INFO: job cycles=13848 vertices=4 distance2=1667596852058 flags=41
+INFO: job cycles=14322 vertices=5 distance2=7792744766813 flags=41
+INFO: job cycles=15254 vertices=7 distance2=3398442993860 flags=41
+INFO: job cycles=16692 vertices=6 distance2=965576536613 flags=41
+INFO: job cycles=14575 vertices=8 distance2=4395335098832 flags=41
+INFO: job cycles=11669 vertices=5 distance2=14070514439690 flags=41
+INFO: job cycles=12971 vertices=5 distance2=14577190405154 flags=41
+INFO: job cycles=17078 vertices=4 distance2=2165064539053 flags=41
+INFO: T14 continuous stress completed 1000 jobs
+INFO: job cycles=3 vertices=0 distance2=0 flags=20
+PASS: localization_command_ctrl command, restart, RAM and geometry integration
+$finish called at time : 126189026 ns : File "E:/BÌâ¸Ä½ø/fpga_stage1/tb/unit/tb_localization_command_ctrl.v" Line 424
+run: Time (s): cpu = 00:00:00 ; elapsed = 00:00:22 . Memory (MB): peak = 195.266 ; gain = 0.000
+exit
+INFO: xsimkernel Simulation Memory Usage: 31640 KB (Peak: 31640 KB), Simulation CPU Usage: 21718 ms
+INFO: [Common 17-206] Exiting xsim at Wed Sep 23 20:25:54 2026...

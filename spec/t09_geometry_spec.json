@@ -1,0 +1,68 @@
+{
+  "title": "T09 half-plane classification and segment intersection contract",
+  "modules": [
+    {
+      "name": "halfplane_classifier",
+      "feature": "t09_geometry",
+      "rtl_path": "rtl/geometry/halfplane_classifier.v",
+      "parameters": {"C_EPS_HALFPLANE": 1073741824},
+      "interfaces": {"ports": [
+        {"name":"clk_i","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"clk_i"},
+        {"name":"reset_i","direction":"input","width":1,"role":"reset","description":"Active-high asynchronous reset","clock_domain":"clk_i"},
+        {"name":"start_i","direction":"input","width":1,"role":"control","description":"Accept one point and constraint while idle","clock_domain":"clk_i"},
+        {"name":"point_x_i","direction":"input","width":32,"role":"payload","description":"Signed Q16.16 point X","clock_domain":"clk_i"},
+        {"name":"point_y_i","direction":"input","width":32,"role":"payload","description":"Signed Q16.16 point Y","clock_domain":"clk_i"},
+        {"name":"coefficient_a_i","direction":"input","width":32,"role":"payload","description":"Signed Q2.30 X coefficient","clock_domain":"clk_i"},
+        {"name":"coefficient_b_i","direction":"input","width":32,"role":"payload","description":"Signed Q2.30 Y coefficient","clock_domain":"clk_i"},
+        {"name":"constant_c_i","direction":"input","width":66,"role":"payload","description":"Signed constraint constant with 46 fractional bits","clock_domain":"clk_i"},
+        {"name":"busy_o","direction":"output","width":1,"role":"status","description":"Evaluation is active","clock_domain":"clk_i"},
+        {"name":"done_o","direction":"output","width":1,"role":"status","description":"One-cycle result completion pulse","clock_domain":"clk_i"},
+        {"name":"protocol_error_o","direction":"output","width":1,"role":"error","description":"Start was asserted while busy","clock_domain":"clk_i"},
+        {"name":"function_value_o","direction":"output","width":66,"role":"result","description":"Saturated signed f=a*x+b*y-c with 46 fractional bits","clock_domain":"clk_i"},
+        {"name":"inside_o","direction":"output","width":1,"role":"result","description":"Function value is at least negative epsilon","clock_domain":"clk_i"},
+        {"name":"margin_used_o","direction":"output","width":1,"role":"status","description":"Negative value accepted only by tolerance","clock_domain":"clk_i"},
+        {"name":"arithmetic_saturated_o","direction":"output","width":1,"role":"error","description":"Wide evaluation exceeded the 66-bit result range","clock_domain":"clk_i"}
+      ]},
+      "clock":{"name":"clk_i","frequency_hz":100000000},
+      "reset":{"name":"reset_i","active":"high","synchronous":false},
+      "behavior":["Compute f=a*x+b*y-c in a 67-bit accumulator.","Classify the point inside when f is greater than or equal to -2^30.","Assert margin_used only for values in the closed interval from -2^30 through -1.","Complete four clocks after accepting start."],
+      "constraints":["Coordinates use signed Q16.16 and coefficients use signed Q2.30.","The constant and function result use 46 fractional bits.","A start while busy is rejected and emits one protocol error pulse."],
+      "corner_cases":["The negative epsilon boundary is inside and uses the margin.","Zero is inside without using the margin.","Out-of-range function values saturate and set arithmetic_saturated."],
+      "verification_cases":["Check positive, zero, negative epsilon, and below-epsilon values.","Check positive saturation and busy-start rejection.","Check fixed four-cycle completion latency."],
+      "timing_diagrams":[{"id":"CLASSIFY","title":"Four-cycle half-plane evaluation","scenario":"classify","description":"Two products, one sum, and one output stage follow start acceptance.","wavejson":{"signal":[{"name":"clk_i","wave":"p......"},{"name":"start_i","wave":"010...."},{"name":"busy_o","wave":"01...0."},{"name":"done_o","wave":"0....10"},{"name":"inside_o","wave":"x....=."}]}}]
+    },
+    {
+      "name": "segment_intersection",
+      "feature": "t09_geometry",
+      "rtl_path": "rtl/geometry/segment_intersection.v",
+      "parameters": {"C_EPS_DENOMINATOR": 1073741824},
+      "interfaces": {"ports": [
+        {"name":"clk_i","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"clk_i"},
+        {"name":"reset_i","direction":"input","width":1,"role":"reset","description":"Active-high asynchronous reset","clock_domain":"clk_i"},
+        {"name":"start_i","direction":"input","width":1,"role":"control","description":"Accept one segment and endpoint function pair","clock_domain":"clk_i"},
+        {"name":"start_x_i","direction":"input","width":32,"role":"payload","description":"Signed Q16.16 start X","clock_domain":"clk_i"},
+        {"name":"start_y_i","direction":"input","width":32,"role":"payload","description":"Signed Q16.16 start Y","clock_domain":"clk_i"},
+        {"name":"end_x_i","direction":"input","width":32,"role":"payload","description":"Signed Q16.16 end X","clock_domain":"clk_i"},
+        {"name":"end_y_i","direction":"input","width":32,"role":"payload","description":"Signed Q16.16 end Y","clock_domain":"clk_i"},
+        {"name":"start_value_i","direction":"input","width":66,"role":"payload","description":"Signed function value at segment start","clock_domain":"clk_i"},
+        {"name":"end_value_i","direction":"input","width":66,"role":"payload","description":"Signed function value at segment end","clock_domain":"clk_i"},
+        {"name":"busy_o","direction":"output","width":1,"role":"status","description":"Intersection calculation is active","clock_domain":"clk_i"},
+        {"name":"done_o","direction":"output","width":1,"role":"status","description":"One-cycle completion pulse","clock_domain":"clk_i"},
+        {"name":"protocol_error_o","direction":"output","width":1,"role":"error","description":"Start was asserted while busy","clock_domain":"clk_i"},
+        {"name":"intersection_valid_o","direction":"output","width":1,"role":"valid","description":"Intersection coordinates are valid this clock","clock_domain":"clk_i"},
+        {"name":"parallel_o","direction":"output","width":1,"role":"error","description":"Denominator magnitude did not exceed epsilon","clock_domain":"clk_i"},
+        {"name":"arithmetic_saturated_o","direction":"output","width":1,"role":"error","description":"A coordinate result saturated","clock_domain":"clk_i"},
+        {"name":"ratio_q2_30_o","direction":"output","width":31,"role":"result","description":"Clamped interpolation ratio from zero through one in Q2.30","clock_domain":"clk_i"},
+        {"name":"intersection_x_o","direction":"output","width":32,"role":"result","description":"Signed Q16.16 intersection X","clock_domain":"clk_i"},
+        {"name":"intersection_y_o","direction":"output","width":32,"role":"result","description":"Signed Q16.16 intersection Y","clock_domain":"clk_i"}
+      ]},
+      "clock":{"name":"clk_i","frequency_hz":100000000},
+      "reset":{"name":"reset_i","active":"high","synchronous":false},
+      "behavior":["Form denominator as start_value minus end_value.","Reject denominator magnitudes at or below 2^30 as parallel.","Use a 30-round restoring fractional divider and round the Q2.30 ratio to nearest.","Clamp the ratio to the closed interval from zero through one.","Interpolate both coordinates with nearest rounding and signed 32-bit saturation."],
+      "constraints":["General non-degenerate division completes 37 clocks after start acceptance.","Endpoint or clamped-ratio paths complete in six clocks.","The near-parallel path completes in two clocks without a valid point.","A start while busy is rejected and emits one protocol error pulse."],
+      "corner_cases":["A zero start value returns the start point.","A denominator exactly equal to epsilon is parallel.","One-third and two-thirds ratios use nearest rounding."],
+      "verification_cases":["Check midpoint, one-third, two-thirds, and start-endpoint intersections.","Check the first denominator above epsilon and the exact-epsilon parallel case.","Check all latency classes, pulse widths, and busy-start rejection."],
+      "timing_diagrams":[{"id":"INTERSECTION","title":"Iterative segment intersection","scenario":"divide","description":"The general path holds busy through 30 divider rounds and coordinate interpolation.","wavejson":{"signal":[{"name":"clk_i","wave":"p........"},{"name":"start_i","wave":"010......"},{"name":"busy_o","wave":"01.....0."},{"name":"done_o","wave":"0......10"},{"name":"intersection_valid_o","wave":"0......10"}]}}]
+    }
+  ]
+}

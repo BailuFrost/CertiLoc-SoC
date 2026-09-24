@@ -1,0 +1,6 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t07_xsim/cordic_sincos.v" into library work
+INFO: [VRFC 10-311] analyzing module cordic_sincos
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t07_xsim/bearing_constraint_gen.v" into library work
+INFO: [VRFC 10-311] analyzing module bearing_constraint_gen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t07_xsim/tb_bearing_constraint_gen.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_bearing_constraint_gen

@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/segment_intersection.v" into library work
+INFO: [VRFC 10-311] analyzing module segment_intersection
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/tb/unit/tb_segment_intersection.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_segment_intersection

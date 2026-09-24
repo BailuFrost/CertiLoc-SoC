@@ -1,0 +1,8 @@
+{ signal: [
+  { name: 'clk_i', wave: 'p......' },
+  { name: 'start_i', wave: '010....' },
+  { name: 'busy_o', wave: '01...0.' },
+  { name: 'done_o', wave: '0....10' },
+  { name: 'function_value_o', wave: 'x....=.', data: ['f'] },
+  { name: 'inside_o', wave: 'x....=.', data: ['class'] }
+] }

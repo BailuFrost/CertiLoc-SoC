@@ -1,0 +1,7 @@
+{ signal: [
+  { name: 'clk_i', wave: 'p....' },
+  { name: 'port_0_enable_i', wave: '010..' },
+  { name: 'port_1_enable_i', wave: '010..' },
+  { name: 'port_0_read_valid_o', wave: '0010.' },
+  { name: 'port_1_read_valid_o', wave: '0010.' }
+] }

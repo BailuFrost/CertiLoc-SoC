@@ -1,0 +1,8 @@
+{ signal: [
+  { name: 'clk_i', wave: 'p........' },
+  { name: 'start_i', wave: '010......' },
+  { name: 'busy_o', wave: '01.....0.' },
+  { name: 'ram_write_enable_o', wave: '0.1...10.' },
+  { name: 'ram_write_address_o', wave: 'x.=...=..', data: ['0', '719'] },
+  { name: 'done_o', wave: '0......10' }
+] }

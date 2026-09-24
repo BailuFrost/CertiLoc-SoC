@@ -1,0 +1,6 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t05_xsim/decoder/crc16_ccitt_byte.v" into library work
+INFO: [VRFC 10-311] analyzing module crc16_ccitt_byte
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t05_xsim/decoder/packet_decoder.v" into library work
+INFO: [VRFC 10-311] analyzing module packet_decoder
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t05_xsim/decoder/tb_packet_decoder.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_packet_decoder

@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Editor
+.vscode/
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Vivado / XSim 生成物
+.Xil/
+xsim.dir/
+*.jou
+*.pb
+*.wdb
+*.str
+*.backup.*
+webtalk*
+*.cache/
+*.runs/
+*.gen/
+*.hw/
+*.ip_user_files/
+
+# 比特流和探针文件由 scripts/build_t15_ila.tcl 重新生成
+*.bit
+*.ltx
+*.dcp
+*.vds
+*.veo
+*.xsa

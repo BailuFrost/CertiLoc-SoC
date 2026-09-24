@@ -1,0 +1,8 @@
+{ signal: [
+  { name: 'clk_i', wave: 'p...........' },
+  { name: 'ram_read_enable_o', wave: '010..10....' },
+  { name: 'ram_read_valid_i', wave: '001..010...' },
+  { name: 'classifier_start', wave: '0..10..10..' },
+  { name: 'intersection_start', wave: '0........10' },
+  { name: 'busy_o', wave: '01.........' }
+] }

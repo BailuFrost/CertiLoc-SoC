@@ -1,0 +1,64 @@
+{
+  "title": "T06 iterative CORDIC contract",
+  "modules": [
+    {
+      "name": "cordic_sincos",
+      "feature": "t06_cordic",
+      "rtl_path": "rtl/geometry/cordic_sincos.v",
+      "parameters": {},
+      "interfaces": {
+        "ports": [
+          {"name":"clk_i","direction":"input","width":1,"role":"clock","description":"100 MHz system clock","clock_domain":"clk_i"},
+          {"name":"reset_i","direction":"input","width":1,"role":"reset","description":"Active-high asynchronous reset","clock_domain":"clk_i"},
+          {"name":"start_i","direction":"input","width":1,"role":"control","description":"Start one operation while idle","clock_domain":"clk_i"},
+          {"name":"phase_i","direction":"input","width":18,"role":"payload","description":"Unsigned full-turn phase","clock_domain":"clk_i"},
+          {"name":"busy_o","direction":"output","width":1,"role":"status","description":"CORDIC operation is active","clock_domain":"clk_i"},
+          {"name":"done_o","direction":"output","width":1,"role":"status","description":"One-clock result completion pulse","clock_domain":"clk_i"},
+          {"name":"protocol_error_o","direction":"output","width":1,"role":"error","description":"One-clock pulse when start is asserted while busy","clock_domain":"clk_i"},
+          {"name":"sine_o","direction":"output","width":32,"role":"result","description":"Signed Q2.30 sine result","clock_domain":"clk_i"},
+          {"name":"cosine_o","direction":"output","width":32,"role":"result","description":"Signed Q2.30 cosine result","clock_domain":"clk_i"}
+        ]
+      },
+      "clock": {"name":"clk_i","frequency_hz":100000000},
+      "reset": {"name":"reset_i","active":"high","synchronous":false},
+      "behavior": [
+        "Reduce the unsigned 18-bit full-turn phase into the first quadrant and retain sine/cosine output signs.",
+        "Load the 36-bit Q4.32 X register with the quantized inverse CORDIC gain and perform exactly 18 shift-add micro-rotations.",
+        "Round the final Q4.32 values to signed Q2.30 using nearest rounding with half values away from zero.",
+        "Assert done_o 19 rising-edge intervals after an accepted start_i and hold results until the next completion."
+      ],
+      "constraints": [
+        "Synthesizable Verilog-2001 without vendor CORDIC IP or DSP multiplication.",
+        "A request is accepted only in the idle state.",
+        "The angle lookup table uses the 18 constants frozen by the T02 bit-exact model."
+      ],
+      "corner_cases": [
+        "Quadrant boundaries 0, 90, 180 and 270 degrees follow the same iterative path as all other phases.",
+        "A repeated start while busy emits protocol_error_o and does not alter the active operation.",
+        "done_o and protocol_error_o are independent single-clock pulses."
+      ],
+      "verification_cases": [
+        "Match all 74 T02 bit-exact vectors including cardinal angles, quadrant boundaries, 359 degrees and deterministic random angles.",
+        "Confirm fixed 19-cycle accepted-start-to-done latency.",
+        "Confirm a busy-time start request produces one error pulse without changing the result."
+      ],
+      "timing_diagrams": [
+        {
+          "id": "CORDIC_OPERATION",
+          "title": "One iterative CORDIC operation",
+          "scenario": "fixed_latency",
+          "description": "An idle start loads the reduced phase, busy covers 18 micro-rotations, and done publishes the rounded result.",
+          "wavejson": {
+            "signal": [
+              {"name":"clk_i","wave":"p...................."},
+              {"name":"start_i","wave":"010.................."},
+              {"name":"busy_o","wave":"01.................0."},
+              {"name":"done_o","wave":"0..................10"},
+              {"name":"sine_o/cosine_o","wave":"x..................=.","data":["Q2.30 result"]}
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

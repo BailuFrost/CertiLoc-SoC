@@ -1,0 +1,135 @@
+{
+  "title": "T04 UART RX/TX RTL contract",
+  "modules": [
+    {
+      "name": "uart_tx",
+      "feature": "t04_uart",
+      "rtl_path": "rtl/comm/uart_tx.v",
+      "description": "Serialize accepted bytes as fixed-rate 115200 bit/s 8N1 frames.",
+      "parameters": [
+        {"name": "C_CLKS_PER_BIT", "default": 868, "description": "100 MHz clocks in one UART bit"}
+      ],
+      "interfaces": {
+        "ports": [
+          {"name": "i_clk", "direction": "input", "width": 1, "role": "clock", "description": "100 MHz system clock", "clock_domain": "i_clk"},
+          {"name": "i_reset", "direction": "input", "width": 1, "role": "reset", "description": "Synchronous active-high internal reset", "clock_domain": "i_clk", "active_level": "high"},
+          {"name": "i_data", "direction": "input", "width": 8, "role": "payload", "description": "Byte offered by the packet encoder", "clock_domain": "i_clk"},
+          {"name": "i_data_valid", "direction": "input", "width": 1, "role": "valid", "description": "Input byte is valid", "clock_domain": "i_clk", "active_level": "high"},
+          {"name": "o_data_ready", "direction": "output", "width": 1, "role": "ready", "description": "Transmitter can accept one byte", "clock_domain": "i_clk", "active_level": "high"},
+          {"name": "o_uart_tx", "direction": "output", "width": 1, "role": "serial", "description": "Idle-high 8N1 serial output", "clock_domain": "i_clk", "active_level": "low-start"},
+          {"name": "o_busy", "direction": "output", "width": 1, "role": "status", "description": "A complete character is being sent", "clock_domain": "i_clk", "active_level": "high"}
+        ]
+      },
+      "clock": {"name": "i_clk", "edge": "posedge", "frequency_hz": 100000000},
+      "reset": {"name": "i_reset", "active": "high", "synchronous": true},
+      "behavior": [
+        "A byte is accepted only on a rising edge where i_data_valid and o_data_ready are both high.",
+        "The accepted byte is sent as one low start bit, eight LSB-first data bits, and one high stop bit; every bit lasts exactly C_CLKS_PER_BIT clocks.",
+        "o_data_ready remains low and o_busy remains high for the entire ten-bit frame; the byte input is ignored while busy.",
+        "After reset the serial line is high, the transmitter is idle, and the input interface is ready."
+      ],
+      "constraints": [
+        "Synthesizable Verilog-2001 only.",
+        "No derived or gated clock is permitted.",
+        "C_CLKS_PER_BIT is fixed to 868 in the Basys 3 integration.",
+        "The upstream valid-ready source must keep i_data stable until acceptance."
+      ],
+      "corner_cases": [
+        "Bytes 0x00 and 0xFF preserve all identical data bits.",
+        "An input valid assertion while busy is not accepted and cannot replace the active frame.",
+        "A new byte may be accepted on the first rising edge after the previous stop bit completes."
+      ],
+      "verification_cases": [
+        "TX_RESET_IDLE: reset leaves o_uart_tx high, o_busy low, and o_data_ready high.",
+        "TX_BYTE_PATTERNS: 0x00, 0xFF, 0xA5, and 0x3C match the complete 8N1 wire order.",
+        "TX_BIT_LENGTH: every start, data, and stop bit lasts exactly 868 clocks.",
+        "TX_BACKPRESSURE: o_data_ready stays low throughout an active frame."
+      ],
+      "timing_diagrams": [
+        {
+          "id": "TX_NOMINAL_BYTE",
+          "title": "Accepted byte serialization",
+          "scenario": "nominal_byte",
+          "description": "One accepted byte drives a start bit, eight LSB-first data intervals, and a stop bit before ready returns.",
+          "wavejson": {
+            "signal": [
+              {"name": "i_clk", "wave": "p..........."},
+              {"name": "i_data_valid", "wave": "010........."},
+              {"name": "o_data_ready", "wave": "10.........1"},
+              {"name": "o_busy", "wave": "01.........0"},
+              {"name": "o_uart_tx", "wave": "10========.1", "data": ["start", "d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7"]}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "uart_rx",
+      "feature": "t04_uart",
+      "rtl_path": "rtl/comm/uart_rx.v",
+      "description": "Synchronize and sample a fixed-rate 115200 bit/s 8N1 input into a held valid-ready byte output.",
+      "parameters": [
+        {"name": "C_CLKS_PER_BIT", "default": 868, "description": "100 MHz clocks in one UART bit"},
+        {"name": "C_HALF_BIT_CLKS", "default": 434, "description": "Clocks from start detection to start-bit confirmation"}
+      ],
+      "interfaces": {
+        "ports": [
+          {"name": "i_clk", "direction": "input", "width": 1, "role": "clock", "description": "100 MHz system clock", "clock_domain": "i_clk"},
+          {"name": "i_reset", "direction": "input", "width": 1, "role": "reset", "description": "Synchronous active-high internal reset", "clock_domain": "i_clk", "active_level": "high"},
+          {"name": "i_uart_rx", "direction": "input", "width": 1, "role": "serial", "description": "Asynchronous idle-high 8N1 input", "clock_domain": "asynchronous"},
+          {"name": "i_data_ready", "direction": "input", "width": 1, "role": "ready", "description": "Downstream accepts the held byte", "clock_domain": "i_clk", "active_level": "high"},
+          {"name": "o_data", "direction": "output", "width": 8, "role": "payload", "description": "Most recently completed valid byte", "clock_domain": "i_clk"},
+          {"name": "o_data_valid", "direction": "output", "width": 1, "role": "valid", "description": "Received byte is available and stable", "clock_domain": "i_clk", "active_level": "high"},
+          {"name": "o_frame_error", "direction": "output", "width": 1, "role": "error", "description": "One-clock pulse for a low sampled stop bit", "clock_domain": "i_clk", "active_level": "high"},
+          {"name": "o_busy", "direction": "output", "width": 1, "role": "status", "description": "Receiver is sampling an active character", "clock_domain": "i_clk", "active_level": "high"}
+        ]
+      },
+      "clock": {"name": "i_clk", "edge": "posedge", "frequency_hz": 100000000},
+      "reset": {"name": "i_reset", "active": "high", "synchronous": true},
+      "behavior": [
+        "i_uart_rx passes through two serially connected sampling registers before start detection.",
+        "A low candidate start is confirmed after C_HALF_BIT_CLKS clocks; a returned high level is rejected as a false start.",
+        "Eight data bits and the stop bit are sampled C_CLKS_PER_BIT clocks apart at their nominal centers.",
+        "A valid byte remains stable with o_data_valid high until i_data_ready is high on a rising edge.",
+        "A low stop sample suppresses o_data_valid and raises o_frame_error for one system clock."
+      ],
+      "constraints": [
+        "Synthesizable Verilog-2001 only.",
+        "No derived or gated clock is permitted.",
+        "The asynchronous serial input must remain connected only through the two-register synchronizer.",
+        "The one-entry output buffer intentionally stops detecting new starts while backpressured."
+      ],
+      "corner_cases": [
+        "A low pulse shorter than half a bit is rejected without producing a byte.",
+        "The output byte and valid flag remain unchanged during downstream backpressure.",
+        "Transmit bit periods from 851 through 885 system clocks cover the directed minus/plus two percent mismatch cases.",
+        "A low stop bit produces exactly one frame-error pulse and no valid byte."
+      ],
+      "verification_cases": [
+        "RX_NOMINAL: 0xA5 is reconstructed from an 868-clock 8N1 frame.",
+        "RX_CLOCK_MISMATCH: 0x96 and 0x69 are recovered at 851-clock and 885-clock transmitter bit periods.",
+        "RX_BACKPRESSURE: 0x3C remains stable for at least twenty clocks while i_data_ready is low.",
+        "RX_BAD_STOP: a low stop bit raises one error pulse and does not submit a byte.",
+        "RX_FALSE_START: a 100-clock low pulse returns to idle without a byte."
+      ],
+      "timing_diagrams": [
+        {
+          "id": "RX_NOMINAL_BYTE",
+          "title": "Centered 8N1 receive sampling",
+          "scenario": "nominal_byte",
+          "description": "The synchronized start is confirmed at half a bit, then data and stop levels are sampled one full bit apart before valid is held.",
+          "wavejson": {
+            "signal": [
+              {"name": "i_clk", "wave": "p............"},
+              {"name": "i_uart_rx", "wave": "10========.1.", "data": ["start", "d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7"]},
+              {"name": "o_busy", "wave": "01.........0."},
+              {"name": "o_data_valid", "wave": "0..........10"},
+              {"name": "i_data_ready", "wave": "1............"},
+              {"name": "o_frame_error", "wave": "0............"}
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

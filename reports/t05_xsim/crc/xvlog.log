@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t05_xsim/crc/crc16_ccitt_byte.v" into library work
+INFO: [VRFC 10-311] analyzing module crc16_ccitt_byte
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/t05_xsim/crc/tb_crc16_ccitt_byte.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_crc16_ccitt_byte

@@ -1,0 +1,6 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/memory/vertex_ram_dual_buffer.v" into library work
+INFO: [VRFC 10-311] analyzing module vertex_ram_dual_buffer
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/polygon_diameter_engine.v" into library work
+INFO: [VRFC 10-311] analyzing module polygon_diameter_engine
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/tb/unit/tb_polygon_diameter_engine.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_polygon_diameter_engine

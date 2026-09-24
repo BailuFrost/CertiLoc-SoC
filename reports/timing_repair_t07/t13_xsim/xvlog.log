@@ -1,0 +1,38 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/comm/crc16_ccitt_byte.v" into library work
+INFO: [VRFC 10-311] analyzing module crc16_ccitt_byte
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/comm/packet_decoder.v" into library work
+INFO: [VRFC 10-311] analyzing module packet_decoder
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/comm/packet_encoder.v" into library work
+INFO: [VRFC 10-311] analyzing module packet_encoder
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/comm/uart_rx.v" into library work
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/comm/uart_tx.v" into library work
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/control/localization_command_ctrl.v" into library work
+INFO: [VRFC 10-311] analyzing module localization_command_ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/control/protocol_command_adapter.v" into library work
+INFO: [VRFC 10-311] analyzing module protocol_command_adapter
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/control/protocol_response_adapter.v" into library work
+INFO: [VRFC 10-311] analyzing module protocol_response_adapter
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/bearing_constraint_gen.v" into library work
+INFO: [VRFC 10-311] analyzing module bearing_constraint_gen
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/cordic_sincos.v" into library work
+INFO: [VRFC 10-311] analyzing module cordic_sincos
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/halfplane_classifier.v" into library work
+INFO: [VRFC 10-311] analyzing module halfplane_classifier
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/polygon_clip_engine.v" into library work
+INFO: [VRFC 10-311] analyzing module polygon_clip_engine
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/polygon_diameter_engine.v" into library work
+INFO: [VRFC 10-311] analyzing module polygon_diameter_engine
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/geometry/segment_intersection.v" into library work
+INFO: [VRFC 10-311] analyzing module segment_intersection
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/memory/initial_polygon_loader.v" into library work
+INFO: [VRFC 10-311] analyzing module initial_polygon_loader
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/memory/initial_polygon_rom.v" into library work
+INFO: [VRFC 10-311] analyzing module initial_polygon_rom
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/memory/vertex_ram_dual_buffer.v" into library work
+INFO: [VRFC 10-311] analyzing module vertex_ram_dual_buffer
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/top/radio_localization_fpga_top.v" into library work
+INFO: [VRFC 10-311] analyzing module radio_localization_fpga_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/tb/integration/tb_radio_localization_fpga_top.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_radio_localization_fpga_top

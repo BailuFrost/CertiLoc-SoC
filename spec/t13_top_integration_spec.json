@@ -1,0 +1,110 @@
+{
+  "title": "T13 Basys 3 top-level protocol and localization integration contract",
+  "modules": [
+    {
+      "name": "protocol_command_adapter",
+      "feature": "t13_top_integration",
+      "rtl_path": "rtl/control/protocol_command_adapter.v",
+      "clock": {"name": "clk_i", "frequency_hz": 100000000},
+      "reset": {"name": "reset_i", "active": "high", "synchronous": false},
+      "interfaces": {
+        "ports": [
+          {"name":"clk_i","direction":"input","width":1,"role":"clock"},
+          {"name":"reset_i","direction":"input","width":1,"role":"reset"},
+          {"name":"frame_valid_i","direction":"input","width":1,"role":"valid"},
+          {"name":"frame_ready_o","direction":"output","width":1,"role":"ready"},
+          {"name":"frame_command_i","direction":"input","width":8,"role":"metadata"},
+          {"name":"frame_sequence_i","direction":"input","width":16,"role":"metadata"},
+          {"name":"frame_payload_length_i","direction":"input","width":8,"role":"metadata"},
+          {"name":"payload_read_enable_o","direction":"output","width":1,"role":"control"},
+          {"name":"payload_read_address_o","direction":"output","width":8,"role":"address"},
+          {"name":"payload_read_data_i","direction":"input","width":8,"role":"payload"},
+          {"name":"payload_read_valid_i","direction":"input","width":1,"role":"valid"},
+          {"name":"command_valid_o","direction":"output","width":1,"role":"valid"},
+          {"name":"command_ready_i","direction":"input","width":1,"role":"ready"},
+          {"name":"command_code_o","direction":"output","width":8,"role":"metadata"},
+          {"name":"command_sequence_o","direction":"output","width":16,"role":"metadata"},
+          {"name":"observation_write_valid_o","direction":"output","width":1,"role":"valid"},
+          {"name":"observation_write_ready_i","direction":"input","width":1,"role":"ready"},
+          {"name":"error_valid_o","direction":"output","width":1,"role":"error"},
+          {"name":"error_ready_i","direction":"input","width":1,"role":"ready"}
+        ]
+      },
+      "behavior": [
+        "Read payload bytes only while packet_decoder holds a CRC-valid frame.",
+        "Validate exact SET_CONFIG, complete LOAD_OBSERVATIONS, and READ_RESULT paging fields.",
+        "Buffer every observation locally and write the controller staging area only after full semantic validation.",
+        "Hold a semantic command or local error until the selected downstream consumer accepts it."
+      ],
+      "constraints": ["Payload bytes are little-endian and maximum length is 244 bytes."],
+      "corner_cases": ["Reserved bits, high phase bits, invalid count, invalid length, and invalid result kind are rejected without command commit."],
+      "verification_cases": ["Exact and mismatched config, two observations, result-header and vertex-page requests."],
+      "timing_diagrams": [{"id":"LOAD","title":"Validated observation commit","scenario":"load","description":"Read and validate the held frame before staging writes and command commit.","wavejson":{"signal":[{"name":"frame_valid_i","wave":"01........0"},{"name":"payload_read_enable_o","wave":"00101010..."},{"name":"observation_write_valid_o","wave":"0......1.0."},{"name":"command_valid_o","wave":"0........10"}]}}]
+    },
+    {
+      "name": "protocol_response_adapter",
+      "feature": "t13_top_integration",
+      "rtl_path": "rtl/control/protocol_response_adapter.v",
+      "clock": {"name": "clk_i", "frequency_hz": 100000000},
+      "reset": {"name": "reset_i", "active": "high", "synchronous": false},
+      "interfaces": {
+        "ports": [
+          {"name":"clk_i","direction":"input","width":1,"role":"clock"},
+          {"name":"reset_i","direction":"input","width":1,"role":"reset"},
+          {"name":"response_valid_i","direction":"input","width":1,"role":"valid"},
+          {"name":"response_ready_o","direction":"output","width":1,"role":"ready"},
+          {"name":"response_type_i","direction":"input","width":8,"role":"metadata"},
+          {"name":"response_sequence_i","direction":"input","width":16,"role":"metadata"},
+          {"name":"result_vertex_read_enable_o","direction":"output","width":1,"role":"control"},
+          {"name":"result_vertex_read_ready_i","direction":"input","width":1,"role":"ready"},
+          {"name":"result_vertex_read_address_o","direction":"output","width":10,"role":"address"},
+          {"name":"result_vertex_read_data_i","direction":"input","width":64,"role":"payload"},
+          {"name":"result_vertex_read_valid_i","direction":"input","width":1,"role":"valid"},
+          {"name":"frame_valid_o","direction":"output","width":1,"role":"valid"},
+          {"name":"frame_ready_i","direction":"input","width":1,"role":"ready"},
+          {"name":"frame_command_o","direction":"output","width":8,"role":"metadata"},
+          {"name":"frame_payload_length_o","direction":"output","width":8,"role":"metadata"},
+          {"name":"payload_data_o","direction":"output","width":8,"role":"payload"},
+          {"name":"payload_valid_o","direction":"output","width":1,"role":"valid"},
+          {"name":"payload_ready_i","direction":"input","width":1,"role":"ready"}
+        ]
+      },
+      "behavior": [
+        "Snapshot response and result fields before transmission.",
+        "Render all T03 response payload formats byte-by-byte in little-endian order.",
+        "Convert a valid vertex request into RESULT_VERTICES and prefetch each synchronous RAM word.",
+        "Convert an unavailable vertex range into RESULT_UNAVAILABLE."
+      ],
+      "constraints": ["Vertex chunks contain one through sixteen vertices and fit the 244-byte payload limit."],
+      "corner_cases": ["A final short page returns only remaining vertices; a start index at or above count returns ERROR."],
+      "verification_cases": ["INFO, ACK, STATUS, ERROR, result header, four-vertex page, and unavailable page."],
+      "timing_diagrams": [{"id":"PAGE","title":"Vertex page response","scenario":"page","description":"Descriptor capture starts a RAM prefetch before payload demand.","wavejson":{"signal":[{"name":"response_valid_i","wave":"010......."},{"name":"result_vertex_read_enable_o","wave":"0010..10.."},{"name":"frame_valid_o","wave":"0010......"},{"name":"payload_valid_o","wave":"0...1....0"}]}}]
+    },
+    {
+      "name": "radio_localization_fpga_top",
+      "feature": "t13_top_integration",
+      "rtl_path": "rtl/top/radio_localization_fpga_top.v",
+      "clock": {"name": "clk_100mhz_i", "frequency_hz": 100000000},
+      "reset": {"name": "reset_btn_i", "active": "high", "synchronous": false, "release":"two-stage synchronous"},
+      "interfaces": {
+        "ports": [
+          {"name":"clk_100mhz_i","direction":"input","width":1,"role":"clock"},
+          {"name":"reset_btn_i","direction":"input","width":1,"role":"reset"},
+          {"name":"uart_rx_i","direction":"input","width":1,"role":"serial"},
+          {"name":"uart_tx_o","direction":"output","width":1,"role":"serial"},
+          {"name":"status_led_o","direction":"output","width":4,"role":"status"},
+          {"name":"debug_trigger_o","direction":"output","width":1,"role":"status"}
+        ]
+      },
+      "behavior": [
+        "Connect UART, packet decoder, semantic command adapter, localization controller, response adapter, packet encoder, and UART transmitter.",
+        "Prioritize decoder errors, semantic errors, and controller responses into one held response channel.",
+        "Drive idle, receive, compute, and latched error LEDs and pulse debug_trigger_o on job completion."
+      ],
+      "constraints": ["Basys 3 pins and the 10 ns primary clock are defined by constraints/basys3_radio_localization.xdc."],
+      "corner_cases": ["A CRC error is returned and the next valid frame resynchronizes without reset."],
+      "verification_cases": ["Real serial GET_INFO through result paging, invalid configuration, CRC error, and post-error resynchronization."],
+      "timing_diagrams": [{"id":"UART_JOB","title":"Complete UART localization job","scenario":"uart_job","description":"Commands and responses surround one geometry computation and paged result read.","wavejson":{"signal":[{"name":"uart_rx_i","wave":"x=.=.=......","data":["CONFIG","LOAD","START"]},{"name":"status_led_o[2]","wave":"0.....1..0."},{"name":"debug_trigger_o","wave":"0.......10."},{"name":"uart_tx_o","wave":"x.=.=...=..","data":["ACK","ACK","RESULT"]}]}}]
+    }
+  ]
+}

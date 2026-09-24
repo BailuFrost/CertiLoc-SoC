@@ -1,0 +1,31 @@
+Vivado Simulator v2024.2.0
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: E:/Vivado/2024.2/bin/unwrapped/win64.o/xelab.exe tb_radio_localization_fpga_top -s tb_radio_localization_fpga_top_sim 
+Multi-threading is on. Using 16 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.uart_rx(C_CLKS_PER_BIT=8,C_HALF_...
+Compiling module work.crc16_ccitt_byte
+Compiling module work.packet_decoder(C_TIMEOUT_CLKS=10...
+Compiling module work.protocol_command_adapter
+Compiling module work.initial_polygon_rom
+Compiling module work.initial_polygon_loader
+Compiling module work.cordic_sincos
+Compiling module work.bearing_constraint_gen
+Compiling module work.halfplane_classifier
+Compiling module work.segment_intersection
+Compiling module work.polygon_clip_engine
+Compiling module work.polygon_diameter_engine
+Compiling module work.vertex_ram_dual_buffer
+Compiling module work.localization_command_ctrl
+Compiling module work.protocol_response_adapter
+Compiling module work.packet_encoder
+Compiling module work.uart_tx(C_CLKS_PER_BIT=8)
+Compiling module work.radio_localization_fpga_top(C_UA...
+Compiling module work.tb_radio_localization_fpga_top
+Built simulation snapshot tb_radio_localization_fpga_top_sim

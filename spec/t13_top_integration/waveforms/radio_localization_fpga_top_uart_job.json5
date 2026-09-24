@@ -1,0 +1,1 @@
+{signal:[{name:'uart_rx_i',wave:'x=.=.=......',data:['CONFIG','LOAD','START']},{name:'status_led_o[2]',wave:'0.....1..0.'},{name:'debug_trigger_o',wave:'0.......10.'},{name:'uart_tx_o',wave:'x.=.=...=..',data:['ACK','ACK','RESULT']}]}

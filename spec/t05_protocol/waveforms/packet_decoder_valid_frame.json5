@@ -1,0 +1,6 @@
+{ signal: [
+  { name: 'i_clk', wave: 'p...........' },
+  { name: 'i_data_valid', wave: '01.0.1.0.1.' },
+  { name: 'o_data_ready', wave: '10.1.0.1.0.' },
+  { name: 'o_frame_valid', wave: '0..........1' }
+] }

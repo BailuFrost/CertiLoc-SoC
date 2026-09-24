@@ -1,0 +1,6 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/comm/crc16_ccitt_byte.v" into library work
+INFO: [VRFC 10-311] analyzing module crc16_ccitt_byte
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/rtl/comm/packet_decoder.v" into library work
+INFO: [VRFC 10-311] analyzing module packet_decoder
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/B题改进/fpga_stage1/tb/unit/tb_packet_decoder.v" into library work
+INFO: [VRFC 10-311] analyzing module tb_packet_decoder

@@ -1,0 +1,1 @@
+{signal:[{name:'response_valid_i',wave:'010.......'},{name:'result_vertex_read_enable_o',wave:'0010..10..'},{name:'frame_valid_o',wave:'0010......'},{name:'payload_valid_o',wave:'0...1....0'}]}

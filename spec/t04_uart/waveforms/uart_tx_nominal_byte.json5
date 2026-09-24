@@ -1,0 +1,9 @@
+{
+  signal: [
+    { name: 'i_clk', wave: 'p...........' },
+    { name: 'i_data_valid', wave: '010.........' },
+    { name: 'o_data_ready', wave: '10.........1' },
+    { name: 'o_busy', wave: '01.........0' },
+    { name: 'o_uart_tx', wave: '10========.1', data: ['start', 'd0', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7'] }
+  ]
+}
